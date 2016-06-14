@@ -69,3 +69,19 @@ id    name                birth_year  death_year  country   genre
 151   '레오나르도 다 빈치'    '1452'      '1519'      '이탈리아'    '르네상스'
 ```
 
+
+##4) CRUD를 간략하게 설명해주세요
+-------------
+
+CRUD는 데이터의 처리 방식으로 Create(생성), Read(읽기), Update(갱신), Delete(삭제)의 앞글자들을 따서 만든 말입니다.
+
+디비와 Rest api에서는 각각 다음과 같이 대응됩니다.
+```
+단어          sql         Rest api
+------      ------      ---------
+Create      Insert      Post
+Read        select      Get
+Update      Update      Put
+Delete      Delete      Delete
+```
+
