@@ -541,6 +541,45 @@ Artist의 새로운 image 데이터를  입력합니다.
 
 
 
+**Delete iamge**
+----
+해당 Artist의 image 데이터들을 모두 삭제합니다.
+
+* **URL**
+
+  /artists/:id/images
+
+* **Method:**
+
+  `Delete`
+
+*  **URL Params**
+
+   **Required:**
+	 None
+* **Data Params**
+	None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+    `{
+      message : "삭제를 완료하였습니다."
+    }`
+
+* **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
+
+  OR
+
+  * **Code:** 403 UNAUTHORIZED <br />
+    **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
+
+
+
 
 ##6) TDD를 설명해주세요. 이 개발 방식의 장단점
 -------------
