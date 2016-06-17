@@ -476,6 +476,72 @@ Artist 데이터를 모두 삭제합니다.
 
 
 
+**Insert Image**
+----
+Artist의 새로운 image 데이터를  입력합니다.
+
+* **URL**
+
+  /artists/:id/images
+
+* **Method:**
+
+  `POST`
+
+*  **URL Params**
+
+   **Required:**
+	 None
+* **Data Params**
+    - image_url (string, max 255 charter)
+    - title (string, max 255 charter)
+    - year (int)
+    - artist_id (int)
+    - description (string, max 255 charter)
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+    `{
+      "id" : 66,
+      "image_url"  : "http://www.wassilykandinsky.net/images/works/370.jpg,
+      "title" : "동심원들과 정사각형들",
+      "year" : 1913,
+      "arist_id" : 103,
+      "description" : "수채, 과슈, 초크"
+    }`
+
+* **Error Response:**
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "OutOfRangeInput", message : "파라미터의 값이 최대 제한 범위를 넘었습니다" }`
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "InvalidInput", message : "파라미터의 데이터형이 맞지 않습니다" }`
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "NotInput", message : "파라미터의 데이터가 없습니다." }`
+
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
+
+  OR
+
+  * **Code:** 403 UNAUTHORIZED <br />
+    **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
+
+
+
+
+
 ##6) TDD를 설명해주세요. 이 개발 방식의 장단점
 -------------
 
