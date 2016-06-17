@@ -107,10 +107,10 @@ Delete      Delete      Delete
    **Required:**
 	 None
    **Optional:**
-	page=[integer]
-	filed=[string],[string],...
-- 원하는 content 데이터만 있을 경우 content key값 입력
-- example: /artists/?filed=id,name
+- page=[integer]
+- filed=[string],[string],...
+    - 원하는 content 데이터만 있을 경우 content key값 입력
+    - example: /artists/?filed=id,name
 
 * **Data Params**
 
@@ -170,11 +170,11 @@ Delete      Delete      Delete
    **Required:**
 	 None
 * **Data Params**
-- name (string, max 45 charter)
-- birth_year (int)
-- death_year (int)
-- country (string, max 45 charter)
-- genre  (string, max 45 charter)
+    - name (string, max 45 charter)
+    - birth_year (int)
+    - death_year (int)
+    - country (string, max 45 charter)
+    - genre  (string, max 45 charter)
 
 
 * **Success Response:**
