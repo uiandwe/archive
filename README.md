@@ -96,12 +96,8 @@ url | GET  |  POST  | PUT  |  DELETE
 /artists/:id | 해당 artist 정보 | X (사용하지 않음) | 해당 artist 정보 갱신 | 해당 artist 삭제
 /artists/:id/images | 해당 artist의 image 리스트 | image 추가 | X (사용하지 않음) | 해당 artist의 image 전체 삭제
 /artists/:id/iamges/:id | 해당 artist의 image 정보 | X (사용하지 않음) | 해당 image 갱신 | 해당 image 삭제
-
-
-
-/images
-
-/images/:id
+/images | image 리스트 | image 추가 | X (사용하지 않음) | 전체 삭제
+/images/:id | 해당 image 정보 | X (사용하지 않음) | 해당 image 갱신 | 해당 image 삭제
 
 - [artist 관련 문서] (https://github.com/uiandwe/art_archive/blob/master/documentation/artists.md)
 - [image 관련 문서] (https://github.com/uiandwe/art_archive/blob/master/documentation/images.md)
