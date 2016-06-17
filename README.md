@@ -368,6 +368,114 @@ Artist 데이터를 모두 삭제합니다.
 
 
 
+**Delete Artist**
+----
+해당 Artist 데이터를 삭제합니다.
+
+* **URL**
+
+  /artists/:id
+
+* **Method:**
+
+  `Delete`
+
+*  **URL Params**
+
+   **Required:**
+	 None
+* **Data Params**
+	None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+    `{
+      message : "삭제를 완료하였습니다."
+    }`
+
+* **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
+
+  OR
+
+  * **Code:** 403 UNAUTHORIZED <br />
+    **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
+
+
+
+
+**Show Image**
+----
+해당  Artist의 image 데이터들을 리턴합니다.
+
+* **URL**
+
+  /artists/:id/images
+
+* **Method:**
+
+  `GET`
+
+*  **URL Params**
+
+   **Required:**
+	 None
+   **Optional:**
+- page=[integer]
+- filed=[string],[string],...
+    - 원하는 content 데이터만 있을 경우 content key값 입력
+    - example: /artists/1/images?filed=id,image_url,title
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+    `{
+    page:1,
+    totle_page:6,
+    data:[{
+      "id" : 1,
+      "image_url"  : "http://www.vggallery.com/painting/f_0467.jpg",
+      "title" : "밤의 카페 테라스",
+      "year" : 1888,
+      "arist_id" : 102,
+      "description" : "캔버스에 유채"
+    },
+    {
+      "id" : 2,
+      "image_url"  : "http://www.wassilykandinsky.net/images/works/370.jpg,
+      "title" : "동심원들과 정사각형들",
+      "year" : 1913,
+      "arist_id" : 103,
+      "description" : "수채, 과슈, 초크"
+    },...]
+    }`
+
+* **Error Response:**
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "UnknownFiled", message : "잘못된 파라미터 요청입니다." }`
+
+ OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
+
+ OR
+
+  * **Code:** 404 UNAUTHORIZED <br />
+    **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
+
+
+
 ##6) TDD를 설명해주세요. 이 개발 방식의 장단점
 -------------
 
