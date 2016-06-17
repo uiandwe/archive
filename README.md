@@ -90,6 +90,82 @@ Delete      Delete      Delete
 ##5) art_archive 데이터를 활용한 CRUD 기반의 REST API를 설계 및 Documentation
 -------------
 
+**Show Artists**
+----
+  Artist 데이터를  json형태로 리턴합니다.
+
+* **URL**
+
+  /artists
+
+* **Method:**
+
+  `GET`
+
+*  **URL Params**
+
+   **Required:**
+	 None
+   **Optional:**
+	page=[integer]
+	filed=[string],[string],...
+	-원하는 content 데이터만 있을 경우 content key값 입력
+	-example: /artists/?filed=id,name
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+    `{
+    page:1,
+    totle_page:15,
+    data:[{
+      "birth_year" : 1853,
+      "country" : "네더란드",
+      "death_year" : 1890,
+      "genre" : "후기 인상주의",
+      "id" : 102,
+      "name" : "빈센트 반 고흐"
+    },
+    {
+      "birth_year" : 1866,
+      "country" : "프랑스",
+      "death_year" : 1944,
+      "genre" : "표현주의",
+      "id" : 103,
+      "name" : "바실리 칸딘스키"
+    },...]
+    }`
+
+* **Error Response:**
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ error : "Unknown column" }`
+		- filed 파라미터를 찾을수 없을시
+
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ error : "You are unauthorized to make this request." }`
+		- 권한 없음
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/artists",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+
+
 
 
 ##6) TDD를 설명해주세요. 이 개발 방식의 장단점
