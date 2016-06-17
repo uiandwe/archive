@@ -255,6 +255,52 @@ Artist 데이터를 모두 삭제합니다.
 
 
 
+**Show Artist**
+----
+하나의 Artist 데이터를 리턴합니다.
+
+* **URL**
+
+  /artists/:id
+
+* **Method:**
+
+  `Get`
+
+*  **URL Params**
+
+   **Required:**
+	 `id=[integer]`
+* **Data Params**
+	None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+
+    **Content:**
+    `{
+    data:{
+      "birth_year" : 1853,
+      "country" : "네더란드",
+      "death_year" : 1890,
+      "genre" : "후기 인상주의",
+      "id" : 102,
+      "name" : "빈센트 반 고흐"
+    }
+    }`
+
+* **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ code: "Unauthorized", message : "로그인이 필요합니다." }`
+
+ OR
+
+  * **Code:** 404 UNAUTHORIZED <br />
+    **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
+
+
 
 
 
