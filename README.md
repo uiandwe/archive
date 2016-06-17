@@ -304,6 +304,69 @@ Artist 데이터를 모두 삭제합니다.
 
 
 
+**Update Artist**
+----
+  해당 Artist 데이터를  갱신합니다.
+
+* **URL**
+
+  /artists/:id
+
+* **Method:**
+
+  `PUT`
+
+*  **URL Params**
+
+   **Required:**
+	 None
+* **Data Params**
+    - name (string, max 45 charter)
+    - birth_year (int)
+    - death_year (int)
+    - country (string, max 45 charter)
+    - genre  (string, max 45 charter)
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+    `{
+      "birth_year" : 1853,
+      "country" : "네더란드",
+      "death_year" : 1890,
+      "genre" : "후기 인상주의",
+      "id" : 152,
+      "name" : "빈센트 반 고흐"
+    }`
+
+* **Error Response:**
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "OutOfRangeInput", message : "파라미터의 값이 최대 제한 범위를 넘었습니다" }`
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "InvalidInput", message : "파라미터의 데이터형이 맞지 않습니다" }`
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "NotInput", message : "파라미터의 데이터가 없습니다." }`
+
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
+
+  OR
+
+  * **Code:** 403 UNAUTHORIZED <br />
+    **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
+
+
 
 ##6) TDD를 설명해주세요. 이 개발 방식의 장단점
 -------------
