@@ -90,8 +90,8 @@ Delete      Delete      Delete
 ##5) art_archive 데이터를 활용한 CRUD 기반의 REST API를 설계 및 Documentation
 -------------
 
-[artist 관련 문서] (https://github.com/uiandwe/art_archive/blob/master/documentation/artists.md)
-[image 관련 문서] (https://github.com/uiandwe/art_archive/blob/master/documentation/images.md)
+- [artist 관련 문서] (https://github.com/uiandwe/art_archive/blob/master/documentation/artists.md)
+- [image 관련 문서] (https://github.com/uiandwe/art_archive/blob/master/documentation/images.md)
 
 
 ##6) TDD를 설명해주세요. 이 개발 방식의 장단점
