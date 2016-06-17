@@ -144,12 +144,12 @@ Delete      Delete      Delete
 * **Error Response:**
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ code: "UnknownFiled", error : "잘못된 파라미터 요청입니다." }`
+    **Content:** `{ code: "UnknownFiled", message : "잘못된 파라미터 요청입니다." }`
 
  OR
 
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ code:"Unauthorized", error : "로그인이 필요합니다." }`
+    **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
 
 
@@ -193,27 +193,66 @@ Delete      Delete      Delete
 * **Error Response:**
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ code: "OutOfRangeInput", error : "파라미터의 값이 최대 제한 범위를 넘었습니다" }`
+    **Content:** `{ code: "OutOfRangeInput", message : "파라미터의 값이 최대 제한 범위를 넘었습니다" }`
 
   OR
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ code: "InvalidInput", error : "파라미터의 데이터형이 맞지 않습니다" }`
+    **Content:** `{ code: "InvalidInput", message : "파라미터의 데이터형이 맞지 않습니다" }`
 
   OR
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ code: "NotInput", error : "파라미터의 데이터가 없습니다." }`
+    **Content:** `{ code: "NotInput", message : "파라미터의 데이터가 없습니다." }`
 
   OR
 
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ code:"Unauthorized", error : "로그인이 필요합니다." }`
+    **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
   * **Code:** 403 UNAUTHORIZED <br />
-    **Content:** `{ code:"Forbidden", error : "권한이 없습니다." }`
+    **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
+
+
+**Delete Artist**
+----
+Artist 데이터를 모두 삭제합니다.
+
+* **URL**
+
+  /artists
+
+* **Method:**
+
+  `Delete`
+
+*  **URL Params**
+
+   **Required:**
+	 None
+* **Data Params**
+	None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+    `{
+      message : "삭제를 완료하였습니다."
+    }`
+
+* **Error Response:**
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
+
+  OR
+
+  * **Code:** 403 UNAUTHORIZED <br />
+    **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
+
 
 
 
