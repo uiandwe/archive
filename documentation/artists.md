@@ -1,4 +1,7 @@
-**Show Artists**
+
+## 1. /artists
+
+### 1-1 **Show Artists**
 ----
   Artist 데이터를  json형태로 리턴합니다.
 
@@ -61,7 +64,7 @@
 
 
 
-**Insert Artist**
+### 1-2 **Insert Artist**
 ----
 새로운  Artist 데이터를  입력합니다.
 
@@ -124,7 +127,7 @@
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
-**Delete Artist**
+### 1-3 **Delete Artist**
 ----
 Artist 데이터를 모두 삭제합니다.
 
@@ -161,9 +164,9 @@ Artist 데이터를 모두 삭제합니다.
   * **Code:** 403 UNAUTHORIZED <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
+## 2. /artists/:id
 
-
-**Show Artist**
+### 2-1 **Show Artist**
 ----
 하나의 Artist 데이터를 리턴합니다.
 
@@ -212,7 +215,7 @@ Artist 데이터를 모두 삭제합니다.
 
 
 
-**Update Artist**
+### 2-2 **Update Artist**
 ----
   해당 Artist 데이터를  갱신합니다.
 
@@ -276,7 +279,7 @@ Artist 데이터를 모두 삭제합니다.
 
 
 
-**Delete Artist**
+### 2-3 **Delete Artist**
 ----
 해당 Artist 데이터를 삭제합니다.
 
