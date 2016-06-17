@@ -143,27 +143,78 @@ Delete      Delete      Delete
 * **Error Response:**
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ error : "Unknown column" }`
-		- filed 파라미터를 찾을수 없을시
+    **Content:** `{ code: "UnknownFiled", error : "잘못된 파라미터 요청입니다." }`
+
+ OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ code:"Unauthorized", error : "로그인이 필요합니다." }`
+
+
+
+**Insert Artist**
+----
+새로운  Artist 데이터를  입력합니다.
+
+* **URL**
+
+  /artists
+
+* **Method:**
+
+  `POST`
+
+*  **URL Params**
+
+   **Required:**
+	 None
+* **Data Params**
+	-name (string, max 45 charter)
+	-birth_year (int)
+	-death_year (int)
+	-country (string, max 45 charter)
+	-genre  (string, max 45 charter)
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+    `{
+      "birth_year" : 1853,
+      "country" : "네더란드",
+      "death_year" : 1890,
+      "genre" : "후기 인상주의",
+      "id" : 152,
+      "name" : "빈센트 반 고흐"
+    }`
+
+* **Error Response:**
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "OutOfRangeInput", error : "파라미터의 값이 최대 제한 범위를 넘었습니다" }`
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "InvalidInput", error : "파라미터의 데이터형이 맞지 않습니다" }`
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "NotInput", error : "파라미터의 데이터가 없습니다." }`
 
   OR
 
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "You are unauthorized to make this request." }`
-		- 권한 없음
+    **Content:** `{ code:"Unauthorized", error : "로그인이 필요합니다." }`
 
-* **Sample Call:**
+  OR
 
-  ```javascript
-    $.ajax({
-      url: "/artists",
-      dataType: "json",
-      type : "GET",
-      success : function(r) {
-        console.log(r);
-      }
-    });
-  ```
+  * **Code:** 403 UNAUTHORIZED <br />
+    **Content:** `{ code:"Forbidden", error : "권한이 없습니다." }`
+
+
 
 
 
