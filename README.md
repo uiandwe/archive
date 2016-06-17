@@ -47,7 +47,7 @@ Insert into images (image_url, title, year, artist_id, description) Values
 ("https://en.wikipedia.org/wiki/The_Last_Supper_(Leonardo_da_Vinci)#/media/File:%C3%9Altima_Cena_-_Da_Vinci_5.jpg",
 "The Last Supper",
 1495,
-(select id from artists where id = 151),
+151,
 "캔버스에 유채");
 ```
 
