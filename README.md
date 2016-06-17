@@ -90,10 +90,11 @@ Delete      Delete      Delete
 ##5) art_archive 데이터를 활용한 CRUD 기반의 REST API를 설계 및 Documentation
 -------------
 
-First Header | Second Header
------------- | -------------
-Content from cell 1 | Content from cell 2
-Content in the first column | Content in the second column
+url | GET  |  POST  | PUT  |  DELETE
+------------ | ------------- | ------------- | ------------- | -------------
+/artists | artist 리스트 | artist 추가 | X (사용하지 않음) | 전체 삭제
+
+
 
 url | GET | POST | PUT | DELETE
 ------------ | ------------- | ------------ | -------------
