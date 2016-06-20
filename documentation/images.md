@@ -175,7 +175,7 @@ Artist의 새로운 image 데이터를  입력합니다.
 
 
 
-## 4. /artists/:id/images/:id 
+## 4. /artists/:id/images/:id
 ### 4-1 **Show Image**
 ----
 해당 Artist의 하나의 image 데이터를 리턴합니다.
