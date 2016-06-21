@@ -531,13 +531,12 @@ image 데이터들을 리턴합니다.
 *  **URL Params**
 
    **Required:**
-	 `artist_id=[integer]
-	 image_id=[interger]`
+	 `id=[integer]`
 
 * **Data Params**
 	- filed=[string],[string],...
     - 원하는 content 데이터만 있을 경우 content key값 입력
-    - example: /artists/1/images/1?filed=id,image_url...
+    - example: /images/1?filed=id,image_url...
 
 * **Success Response:**
 

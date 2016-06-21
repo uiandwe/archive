@@ -188,7 +188,9 @@ Artist 데이터를 모두 삭제합니다.
    **Required:**
 	 `id=[integer]`
 * **Data Params**
-	None
+	- filed=[string],[string],...
+    - 원하는 content 데이터만 있을 경우 content key값 입력
+    - example: /artists/102?filed=id,country...
 
 * **Success Response:**
 
