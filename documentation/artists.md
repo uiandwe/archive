@@ -213,7 +213,7 @@ Artist 데이터를 모두 삭제합니다.
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 

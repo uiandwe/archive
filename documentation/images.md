@@ -64,7 +64,7 @@
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 
@@ -226,7 +226,7 @@ Artist의 새로운 image 데이터를  입력합니다.
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 
@@ -398,7 +398,7 @@ image 데이터들을 리턴합니다.
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 
@@ -560,7 +560,7 @@ image 데이터들을 리턴합니다.
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 
