@@ -59,7 +59,7 @@
 
  OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
@@ -123,12 +123,12 @@ Artist의 새로운 image 데이터를  입력합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -163,12 +163,12 @@ Artist의 새로운 image 데이터를  입력합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -221,7 +221,7 @@ Artist의 새로운 image 데이터를  입력합니다.
 
  OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code: "Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
@@ -285,12 +285,12 @@ Artist의 새로운 image 데이터를  입력합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -324,12 +324,12 @@ artist의 해당 Image 데이터를 삭제합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -393,7 +393,7 @@ image 데이터들을 리턴합니다.
 
  OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
@@ -457,12 +457,12 @@ image 데이터들을 리턴합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -497,12 +497,12 @@ image 데이터들을 리턴합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -555,7 +555,7 @@ image 데이터들을 리턴합니다.
 
  OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code: "Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
@@ -619,12 +619,12 @@ image 데이터들을 리턴합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -658,12 +658,12 @@ artist의 해당 Image 데이터를 삭제합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
