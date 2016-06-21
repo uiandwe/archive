@@ -208,7 +208,7 @@ Artist 데이터를 모두 삭제합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code: "Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
@@ -274,7 +274,7 @@ Artist 데이터를 모두 삭제합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
