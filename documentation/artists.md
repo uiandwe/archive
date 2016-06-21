@@ -109,7 +109,7 @@
   OR
 
   * **Code:** 400 Bad Request <br />
-    **Content:** `{ code: "WrongInput", message : "death year의 값이 birth year보다 작습니다." }`
+    **Content:** `{ code: "WrongInput", message : "파라미터의 값이 잘못되었습니다" }`
 
   OR
 
