@@ -206,7 +206,13 @@ Artist의 새로운 image 데이터를  입력합니다.
     **Content:**
     `{
     data:{
-      "id" : 1,
+      "birth_year" : 1853,
+      "country" : "네더란드",
+      "death_year" : 1890,
+      "genre" : "후기 인상주의",
+      "artist_id" : 152,
+      "name" : "빈센트 반 고흐"
+      "image_id" : 1,
       "image_url"  : "http://www.vggallery.com/painting/f_0467.jpg",
       "title" : "밤의 카페 테라스",
       "year" : 1888,
