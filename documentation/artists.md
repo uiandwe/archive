@@ -33,7 +33,7 @@
     **Content:**
     `{
     page:1,
-    totle_page:15,
+    total_page:15,
     data:[{
       "birth_year" : 1853,
       "country" : "네더란드",

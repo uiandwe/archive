@@ -33,7 +33,7 @@
     **Content:**
     `{
     page:1,
-    totle_page:6,
+    total_page:6,
     data:[{
       "id" : 1,
       "image_url"  : "http://www.vggallery.com/painting/f_0467.jpg",
@@ -367,7 +367,7 @@ image 데이터들을 리턴합니다.
     **Content:**
     `{
     page:1,
-    totle_page:6,
+    total_page:6,
     data:[{
       "id" : 1,
       "image_url"  : "http://www.vggallery.com/painting/f_0467.jpg",
