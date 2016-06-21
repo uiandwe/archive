@@ -90,7 +90,7 @@
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:**
     `{
       "birth_year" : 1853,

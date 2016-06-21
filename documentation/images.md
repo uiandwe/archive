@@ -95,7 +95,7 @@ Artist의 새로운 image 데이터를  입력합니다.
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:**
     `{
       "id" : 66,
@@ -429,7 +429,7 @@ image 데이터들을 리턴합니다.
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:**
     `{
       "id" : 66,
