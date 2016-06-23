@@ -33,7 +33,7 @@
     **Content:**
     `{
     page:1,
-    totle_page:6,
+    total_page:6,
     data:[{
       "id" : 1,
       "image_url"  : "http://www.vggallery.com/painting/f_0467.jpg",
@@ -59,12 +59,12 @@
 
  OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 
@@ -95,7 +95,7 @@ Artist의 새로운 image 데이터를  입력합니다.
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:**
     `{
       "id" : 66,
@@ -123,12 +123,12 @@ Artist의 새로운 image 데이터를  입력합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -163,12 +163,12 @@ Artist의 새로운 image 데이터를  입력합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -206,7 +206,13 @@ Artist의 새로운 image 데이터를  입력합니다.
     **Content:**
     `{
     data:{
-      "id" : 1,
+      "birth_year" : 1853,
+      "country" : "네더란드",
+      "death_year" : 1890,
+      "genre" : "후기 인상주의",
+      "artist_id" : 152,
+      "name" : "빈센트 반 고흐"
+      "image_id" : 1,
       "image_url"  : "http://www.vggallery.com/painting/f_0467.jpg",
       "title" : "밤의 카페 테라스",
       "year" : 1888,
@@ -221,12 +227,12 @@ Artist의 새로운 image 데이터를  입력합니다.
 
  OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code: "Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 
@@ -285,12 +291,12 @@ Artist의 새로운 image 데이터를  입력합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -324,12 +330,12 @@ artist의 해당 Image 데이터를 삭제합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -367,7 +373,7 @@ image 데이터들을 리턴합니다.
     **Content:**
     `{
     page:1,
-    totle_page:6,
+    total_page:6,
     data:[{
       "id" : 1,
       "image_url"  : "http://www.vggallery.com/painting/f_0467.jpg",
@@ -393,12 +399,12 @@ image 데이터들을 리턴합니다.
 
  OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 
@@ -429,7 +435,7 @@ image 데이터들을 리턴합니다.
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:**
     `{
       "id" : 66,
@@ -457,12 +463,12 @@ image 데이터들을 리턴합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -497,12 +503,12 @@ image 데이터들을 리턴합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -525,13 +531,12 @@ image 데이터들을 리턴합니다.
 *  **URL Params**
 
    **Required:**
-	 `artist_id=[integer]
-	 image_id=[interger]`
+	 `id=[integer]`
 
 * **Data Params**
 	- filed=[string],[string],...
     - 원하는 content 데이터만 있을 경우 content key값 입력
-    - example: /artists/1/images/1?filed=id,image_url...
+    - example: /images/1?filed=id,image_url...
 
 * **Success Response:**
 
@@ -555,12 +560,12 @@ image 데이터들을 리턴합니다.
 
  OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code: "Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 
@@ -619,12 +624,12 @@ image 데이터들을 리턴합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -658,12 +663,12 @@ artist의 해당 Image 데이터를 삭제합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 

@@ -33,7 +33,7 @@
     **Content:**
     `{
     page:1,
-    totle_page:15,
+    total_page:15,
     data:[{
       "birth_year" : 1853,
       "country" : "네더란드",
@@ -59,7 +59,7 @@
 
  OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
 
@@ -90,7 +90,7 @@
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 201 <br />
     **Content:**
     `{
       "birth_year" : 1853,
@@ -109,6 +109,11 @@
   OR
 
   * **Code:** 400 Bad Request <br />
+    **Content:** `{ code: "WrongInput", message : "파라미터의 값이 잘못되었습니다" }`
+
+  OR
+
+  * **Code:** 400 Bad Request <br />
     **Content:** `{ code: "InvalidInput", message : "파라미터의 데이터형이 맞지 않습니다" }`
 
   OR
@@ -123,7 +128,7 @@
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -161,7 +166,7 @@ Artist 데이터를 모두 삭제합니다.
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 ## 2. /artists/:id
@@ -183,7 +188,9 @@ Artist 데이터를 모두 삭제합니다.
    **Required:**
 	 `id=[integer]`
 * **Data Params**
-	None
+	- filed=[string],[string],...
+    - 원하는 content 데이터만 있을 경우 content key값 입력
+    - example: /artists/102?filed=id,country...
 
 * **Success Response:**
 
@@ -203,12 +210,12 @@ Artist 데이터를 모두 삭제합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code: "Unauthorized", message : "로그인이 필요합니다." }`
 
  OR
 
-  * **Code:** 404 UNAUTHORIZED <br />
+  * **Code:** 404 Not Found <br />
     **Content:** `{ code:"ResourceNotFound", message : "리소스를 찾을 수 없습니다." }`
 
 
@@ -269,12 +276,12 @@ Artist 데이터를 모두 삭제합니다.
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 
@@ -308,12 +315,12 @@ Artist 데이터를 모두 삭제합니다.
 
 * **Error Response:**
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** `{ code:"Unauthorized", message : "로그인이 필요합니다." }`
 
   OR
 
-  * **Code:** 403 UNAUTHORIZED <br />
+  * **Code:** 403 Forbidden <br />
     **Content:** `{ code:"Forbidden", message : "권한이 없습니다." }`
 
 

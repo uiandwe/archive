@@ -95,7 +95,7 @@ url | GET  |  POST  | PUT  |  DELETE
 /artists | artist 리스트 | artist 추가 | X (사용하지 않음) | 전체 삭제
 /artists/:id | 해당 artist 정보 | X (사용하지 않음) | 해당 artist 정보 갱신 | 해당 artist 삭제
 /artists/:id/images | 해당 artist의 image 리스트 | image 추가 | X (사용하지 않음) | 해당 artist의 image 전체 삭제
-/artists/:id/iamges/:id | 해당 artist의 image 정보 | X (사용하지 않음) | 해당 image 갱신 | 해당 image 삭제
+/artists/:id/images/:id | 해당 artist의 image 정보 | X (사용하지 않음) | 해당 image 갱신 | 해당 image 삭제
 /images | image 리스트 | image 추가 | X (사용하지 않음) | 전체 삭제
 /images/:id | 해당 image 정보 | X (사용하지 않음) | 해당 image 갱신 | 해당 image 삭제
 
