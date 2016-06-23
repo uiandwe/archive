@@ -1,9 +1,10 @@
 __author__ = 'hyeonsj'
 import pytest
 import pymysql
-from models import db
+
+from controllers.DbController import DbController
 xfail = pytest.mark.xfail
-dc = db.Connect()
+dc = DbController()
 
 
 def test_connect():
