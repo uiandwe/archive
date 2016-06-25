@@ -52,7 +52,9 @@ class DbController:
             return self.cur
 
         except pymysql.InternalError as error:
-            return self.error_code(error)
+            code, message = error.args
+            print(">>>>>>>>>>>>>", code, message)
+            return code, message
 
     def insert(self, sql):
         self.exec(sql, "insert")
