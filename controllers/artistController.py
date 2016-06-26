@@ -3,8 +3,8 @@ from models import ArtistModel
 
 
 def get_artists(filed, page):
-    artist_Model = ArtistModel.ArtistModel()
-    artist_list, filed_list = artist_Model.get(filed)
+    artist_model = ArtistModel.ArtistModel()
+    artist_list, filed_list = artist_model.get(filed)
 
     #객체가 아닌 int 형일 경우 에러 코드로 판단
     if isinstance(artist_list, int):
@@ -19,5 +19,11 @@ def get_artists(filed, page):
     return {'status': "200", 'data': json_data_list, 'message': "success"}
 
 
-def delete_all_artists(dc):
-    return {'status': "200", 'data': "", 'message': "success"}
+def delete_all_artists():
+    artist_model = ArtistModel.ArtistModel()
+    return_value = artist_model.delete()
+    if return_value:
+        return {'status': "200", 'data': "", 'message': "success"}
+    else:
+        if isinstance(return_value[0], int):
+            return {'status': "403", 'data': "", 'message': return_value[1]}

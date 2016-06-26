@@ -57,3 +57,18 @@ class ArtistModel():
 
         return return_instance_list, filed_list
 
+    def delete(self, artist_id=None):
+
+        delete_where = ""
+
+        if artist_id:
+            delete_where = "where id = "+str(artist_id)+" "
+
+        sql = "delete from artists " + delete_where
+        cur = dc.delete(sql)
+
+        if type(cur) is tuple:
+            return cur
+
+        else:
+            return True
