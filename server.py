@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
-from controllers import DbController, artistController
-dc = DbController.DbController()
+from controllers import artistController
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST', 'DELETE', 'PUT'])
@@ -20,18 +19,20 @@ def index():
 
 @app.route("/artists", methods=['GET', 'POST', 'DELETE'])
 def artists():
+
+    return_json = {}
+
     if request.method == 'POST':
         print("post")
     elif request.method == 'GET':
         filed = request.args.get('filed', '')
         page = request.args.get('page', 1)
 
-        return jsonify(artistController.get_artists(dc, filed, page))
-
+        return_json = artistController.get_artists(filed, page)
     elif request.method == 'DELETE':
-        print("DELETE")
+        return_json = artistController.delete_all_artists()
 
-    return_json = {'status': "success", 'data': '', 'message': "true"}
+    # return_json = {'status': "success", 'data': '', 'message': "true"}
     return jsonify(return_json)
 
 if __name__ == "__main__":

@@ -1,10 +1,9 @@
 #-*- coding: utf-8 -*-
 __author__ = 'hyeonsj'
 import pytest
-import pymysql
 
 from controllers.DbController import DbController
-from controllers import artistController
+from models import ArtistModel
 xfail = pytest.mark.xfail
 dc = DbController()
 
@@ -12,11 +11,27 @@ dc = DbController()
 def test_artist_count():
     filed = "name"
     page = 0
-    return_json = artistController.get_artists(dc, filed, page)
+    artist_Model = ArtistModel.ArtistModel()
+    artist_list, filed_list = artist_Model.get(filed)
 
-    assert len(return_json['data']) == 50
+    assert len(artist_list) == 50
 
-    assert return_json['data'][0].get('name') == "빈센트 반 고흐"
+    assert artist_list[0].name == "빈센트 반 고흐"
 
 
+# def test_delete_all_artists():
+#     from models import ArtistModel
+#     a = ArtistModel.ArtistModel()
+#     filed = ''
+#     return_instance_artist_list = a.get(filed)
+    # for temp in return_instance_artist_list:
+    #     print(temp.id, temp.name, temp.birth_year, temp.death_year, temp.country, temp.genre)
 
+    # return_json = artistController.delete_all_artists(dc)
+    #
+    # assert return_json['status'] == "200"
+    #
+    # sql = "select count(*) from artists;"
+    # cur = dc.find(sql)
+    # for temp_count in cur:
+    #     assert temp_count[0] == 0
