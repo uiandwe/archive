@@ -65,7 +65,7 @@ def artist(artist_id):
 
         return_json = artistController.get_artist(filed, artist_id)
     elif request.method == 'DELETE':
-        return_json = artistController.delete_all_artists()
+        return_json = artistController.delete_artists(artist_id)
 
     # return_json = {'status': "success", 'data': '', 'message': "true"}
     return jsonify(return_json)

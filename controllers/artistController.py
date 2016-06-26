@@ -23,7 +23,7 @@ def delete_all_artists():
     artist_model = ArtistModel.ArtistModel()
     return_value = artist_model.delete()
     if return_value:
-        return {'status': "200", 'data': "", 'message': "success"}
+        return {'status': "200", 'data': "", 'message': "삭제를 완료하였습니다."}
     else:
         if isinstance(return_value[0], int):
             return {'status': "403", 'code': "Forbidden", 'data': "", 'message': return_value[1]}
@@ -84,4 +84,14 @@ def get_artist(filed, artist_id):
     for item in artist_list:
         json_data_list = item.to_dict(item, filed_list)
 
-    return {'status': "200", 'data': json_data_list, 'message': "success"}
+    return {'status': "200", 'code': 200, 'data': json_data_list, 'message': "success"}
+
+
+def delete_artists(artist_id):
+    artist_model = ArtistModel.ArtistModel()
+    return_value = artist_model.delete(artist_id)
+    if return_value:
+        return {'status': "200", 'code': 200, 'data': "", 'message': "삭제를 완료하였습니다."}
+    else:
+        if isinstance(return_value[0], int):
+            return {'status': "403", 'code': "Forbidden", 'data': "", 'message': return_value[1]}
