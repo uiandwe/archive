@@ -9,7 +9,7 @@ xfail = pytest.mark.xfail
 dc = DbController()
 
 
-def test_artist_get():
+def test_artists_get():
     filed = "name"
     page = 0
     artist_Model = ArtistModel.ArtistModel()
@@ -26,7 +26,7 @@ def test_artist_get():
 
     # assert return_value
 
-def test_artist_post():
+def test_artists_post():
 
 
     name = ""
@@ -56,3 +56,10 @@ def test_artist_post():
     return_json = artistController.post_artists(name, birth_year, death_year, country, genre)
     print(return_json)
     assert return_json['code'] == "WrongInput"
+
+
+def test_artist_get():
+
+    return_json = artistController.get_artist(None, 105)
+
+    assert return_json['data']['name'] == "존 밀레이"

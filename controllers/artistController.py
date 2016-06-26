@@ -69,18 +69,19 @@ def post_artists(name, birth_year=None, death_year=None, country=None, genre=Non
     return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
 
 
-# def get_artist(filed):
-#     artist_model = ArtistModel.ArtistModel()
-#     artist_list, filed_list = artist_model.get(filed)
-#
-#     #객체가 아닌 int 형일 경우 에러 코드로 판단
-#     if isinstance(artist_list, int):
-#         #알 수 없는 컬럼일 경우
-#         if artist_list == 1054:
-#             return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
-#
-#     json_data_list = []
-#     for item in artist_list:
-#         json_data_list.append(item.to_dict(item, filed_list))
-#
-#     return {'status': "200", 'data': json_data_list, 'message': "success"}
+def get_artist(filed, artist_id):
+    artist_model = ArtistModel.ArtistModel()
+
+    artist_list, filed_list = artist_model.get(filed, artist_id)
+
+    #객체가 아닌 int 형일 경우 에러 코드로 판단
+    if isinstance(artist_list, int):
+        #알 수 없는 컬럼일 경우
+        if artist_list == 1054:
+            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
+
+    json_data_list = []
+    for item in artist_list:
+        json_data_list = item.to_dict(item, filed_list)
+
+    return {'status': "200", 'data': json_data_list, 'message': "success"}

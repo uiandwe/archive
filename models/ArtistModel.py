@@ -28,7 +28,7 @@ class ArtistModel():
         filed_list = []
 
         #특정 필드가 아니면 artist테이블의 모든 칼럼 이름을 가져와서 filed_list에 넣음
-        if filed is None:
+        if filed is None or filed is '':
             filed = "*"
             sql = " SHOW COLUMNS FROM artists; "
             cur = dc.find(sql)
