@@ -23,12 +23,12 @@ class ArtistModel():
                 return_dict[filed] = getattr(instance, filed)
             return return_dict
 
-    def get(self, filed):
+    def get(self, filed=None, artist_id=None):
 
         filed_list = []
 
         #특정 필드가 아니면 artist테이블의 모든 칼럼 이름을 가져와서 filed_list에 넣음
-        if not filed:
+        if filed is None:
             filed = "*"
             sql = " SHOW COLUMNS FROM artists; "
             cur = dc.find(sql)
@@ -40,6 +40,10 @@ class ArtistModel():
                 filed_list.append(item)
 
         sql = "SELECT "+filed+"  FROM artists "
+
+        if artist_id is not None:
+            sql += " where id = "+str(artist_id)
+
         cur = dc.find(sql)
         #에러일 경우 tuple 리턴
         if type(cur) is tuple:
@@ -72,3 +76,30 @@ class ArtistModel():
 
         else:
             return True
+
+    def insert(self, instance_artist):
+
+        artist_dict = instance_artist.__dict__
+
+        insert_columns = []
+        insert_values = []
+        columns = artist_dict.keys()
+        for artist_columns in columns:
+            if artist_columns is not "id":
+                if artist_dict[artist_columns] is not None and artist_dict[artist_columns] != "":
+                    insert_columns.append(artist_columns)
+                    if type(artist_dict[artist_columns]) is str:
+                        insert_values.append("'"+artist_dict[artist_columns]+"'")
+                    else:
+                        insert_values.append(str(artist_dict[artist_columns]))
+
+        insert_columns = ",".join(insert_columns)
+        insert_values = ",".join(insert_values)
+
+        sql = "insert into artists("+insert_columns+") value("+insert_values+")"
+        dc.insert(sql)
+
+        sql = "SELECT LAST_INSERT_ID();"
+        cur = dc.find(sql)
+
+        return cur

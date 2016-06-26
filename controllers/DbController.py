@@ -39,6 +39,7 @@ class DbController:
             if type_def == "insert":
                 sql = "SELECT LAST_INSERT_ID();"
                 self.cur.execute(sql)
+                return self.cur
             return self.cur
 
         except pymysql.InternalError as error:

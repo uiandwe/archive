@@ -23,7 +23,15 @@ def artists():
     return_json = {}
 
     if request.method == 'POST':
-        print("post")
+
+        name = request.form['name']
+        birth_year = request.form['birth_year']
+        death_year = request.form['death_year']
+        country = request.form['country']
+        genre = request.form['genre']
+
+        return_json = artistController.post_artists(name, birth_year, death_year, country, genre)
+
     elif request.method == 'GET':
         filed = request.args.get('filed', '')
         page = request.args.get('page', 1)
