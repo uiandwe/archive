@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from controllers import artistController
+from controllers import artistController, ImageController
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST', 'DELETE', 'PUT'])
@@ -69,7 +69,7 @@ def artist(artist_id):
 
 
 @app.route("/artists/<int:artist_id>/images", methods=['GET', 'POST', 'DELETE'])
-def artist_images():
+def artist_images(artist_id):
 
     return_json = {}
 
@@ -87,10 +87,10 @@ def artist_images():
         filed = request.args.get('filed', '')
         page = request.args.get('page', 1)
 
-        return_json = artistController.get_artists(filed, page)
+        return_json = ImageController.get_artist_images(artist_id, filed, page)
     elif request.method == 'DELETE':
 
-        return_json = artistController.delete_all_artists()
+        return_json = ImageController.delete_artist_images(artist_id)
 
     return jsonify(return_json)
 

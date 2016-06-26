@@ -34,9 +34,9 @@ def get_artist_images(artist_id, filed=None, page=None):
     return {'status': "200", 'data': data_dict, 'message': "success"}
 
 
-def delete_all_artists():
-    artist_model = ArtistModel.ArtistModel()
-    return_value = artist_model.delete()
+def delete_artist_images(artist_id):
+    image_model = ImageModel.ImageModel()
+    return_value = image_model.delete(artist_id)
     if return_value:
         return {'status': "200", 'data': "", 'message': "삭제를 완료하였습니다."}
     else:
