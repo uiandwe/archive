@@ -103,3 +103,23 @@ class ArtistModel():
         cur = dc.find(sql)
 
         return cur
+
+    def update(self, instance_artist, artist_id):
+
+        artist_dict = instance_artist.__dict__
+        update_set_list = []
+        columns = artist_dict.keys()
+        for artist_columns in columns:
+            if artist_columns is not "id":
+                if type(artist_dict[artist_columns]) is str:
+                    update_set_list.append(artist_columns+"='"+artist_dict[artist_columns]+"'")
+                else:
+                    update_set_list.append(artist_columns+"="+str(artist_dict[artist_columns]))
+
+
+        update_set_list = ",".join(update_set_list)
+
+        sql = "update artists set "+update_set_list+" where id ="+str(artist_id)
+        cur = dc.update(sql)
+
+        return cur

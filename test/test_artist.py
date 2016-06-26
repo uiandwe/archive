@@ -46,7 +46,7 @@ def test_artists_post():
     assert return_json['code'] == "OutOfRangeInput"
 
     name = "현승재"
-    birth_year = 1100
+    birth_year = 1985
     death_year = 1000
     country = "korea"
     genre = "표현주의"
@@ -66,3 +66,15 @@ def test_artist_delete():
 
     return_json = artistController.delete_artists(153)
     assert return_json['code'] == 200
+
+
+def test_artist_update():
+
+    name = "현승재1"
+    birth_year = 1000
+    death_year = 1100
+    country = "korea1"
+    genre = "표현주의1"
+    return_json = artistController.update_artist(194, name, birth_year, death_year, country, genre)
+
+    assert return_json['code'] == "ResourceNotFound"

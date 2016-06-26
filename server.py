@@ -40,7 +40,6 @@ def artists():
     elif request.method == 'DELETE':
         return_json = artistController.delete_all_artists()
 
-    # return_json = {'status': "success", 'data': '', 'message': "true"}
     return jsonify(return_json)
 
 
@@ -48,7 +47,6 @@ def artists():
 def artist(artist_id):
 
     return_json = {}
-
     if request.method == 'PUT':
 
         name = request.form['name']
@@ -57,7 +55,7 @@ def artist(artist_id):
         country = request.form['country']
         genre = request.form['genre']
 
-        return_json = artistController.post_artists(name, birth_year, death_year, country, genre)
+        return_json = artistController.update_artist(artist_id, name, birth_year, death_year, country, genre)
 
     elif request.method == 'GET':
 
@@ -67,7 +65,6 @@ def artist(artist_id):
     elif request.method == 'DELETE':
         return_json = artistController.delete_artists(artist_id)
 
-    # return_json = {'status': "success", 'data': '', 'message': "true"}
     return jsonify(return_json)
 
 if __name__ == "__main__":
