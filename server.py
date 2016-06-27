@@ -75,13 +75,13 @@ def artist_images(artist_id):
 
     if request.method == 'POST':
 
-        name = request.form['name']
-        birth_year = request.form['birth_year']
-        death_year = request.form['death_year']
-        country = request.form['country']
-        genre = request.form['genre']
+        image_url = request.form['image_url']
+        title = request.form['title']
+        year = request.form['year']
+        description = request.form['description']
+        print(image_url, title, year, artist_id, description)
 
-        return_json = artistController.post_artists(name, birth_year, death_year, country, genre)
+        return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
 
     elif request.method == 'GET':
         filed = request.args.get('filed', '')

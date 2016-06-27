@@ -39,7 +39,14 @@ class ImageModel():
             for item in filed.split(","):
                 filed_list.append(item)
 
-        sql = "SELECT "+filed+"  FROM artists as a, images as i where a.id = i.artist_id and a.id = "+str(artist_id)
+        sql = ""
+        #todo 쿼리 정리하기
+        if artist_id is not None:
+            sql = "SELECT "+filed+"  FROM artists as a, images as i where a.id = i.artist_id and a.id = "+str(artist_id)
+
+        if artist_id is None and image_id > 0:
+            sql = "SELECT "+filed+"  FROM images where id = "+str(image_id)
+
         cur = dc.find(sql)
         #에러일 경우 tuple 리턴
         if type(cur) is tuple:
@@ -75,24 +82,24 @@ class ImageModel():
 
     def insert(self, instance_artist):
 
-        artist_dict = instance_artist.__dict__
+        image_dict = instance_artist.__dict__
 
         insert_columns = []
         insert_values = []
-        columns = artist_dict.keys()
+        columns = image_dict.keys()
         for artist_columns in columns:
             if artist_columns is not "id":
-                if artist_dict[artist_columns] is not None and artist_dict[artist_columns] != "":
+                if image_dict[artist_columns] is not None and image_dict[artist_columns] != "":
                     insert_columns.append(artist_columns)
-                    if type(artist_dict[artist_columns]) is str:
-                        insert_values.append("'"+artist_dict[artist_columns]+"'")
+                    if type(image_dict[artist_columns]) is str:
+                        insert_values.append("'"+image_dict[artist_columns]+"'")
                     else:
-                        insert_values.append(str(artist_dict[artist_columns]))
+                        insert_values.append(str(image_dict[artist_columns]))
 
         insert_columns = ",".join(insert_columns)
         insert_values = ",".join(insert_values)
 
-        sql = "insert into artists("+insert_columns+") value("+insert_values+")"
+        sql = "insert into images("+insert_columns+") value("+insert_values+")"
         dc.insert(sql)
 
         sql = "SELECT LAST_INSERT_ID();"
