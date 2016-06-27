@@ -112,7 +112,6 @@ def artist_image(artist_id, image_id):
 
     elif request.method == 'GET':
         filed = request.args.get('filed', '')
-        page = request.args.get('page', 1)
 
         return_json = ImageController.get_artist_image(artist_id, image_id, filed)
     elif request.method == 'DELETE':

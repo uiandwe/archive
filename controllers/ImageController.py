@@ -91,6 +91,10 @@ def get_artist_image(artist_id, image_id, filed=None):
     image_model = ImageModel.ImageModel()
     image_list, filed_list = image_model.get(filed, artist_id, image_id)
 
+    #해당 하는 데이터가 없다면 에러 코드 리턴
+    if len(image_list) <= 0:
+        return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': "잘못된 파라미터 요청입니다."}
+
     #객체가 아닌 int 형일 경우 에러 코드로 판단
     if isinstance(image_list, int):
         #알 수 없는 컬럼일 경우

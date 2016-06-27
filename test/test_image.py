@@ -38,7 +38,16 @@ def test_artist_images_post():
 
 def test_artist_image_get():
 
+    return_json = ImageController.get_artist_image(103, 2, None)
+    print(return_json)
+
+    assert return_json['data']['images']['title'] == '동심원들과 정사각형들'
+
+@xfail
+def test_artist_image_get():
+
     return_json = ImageController.get_artist_image(102, 2, None)
     print(return_json)
 
     assert return_json['data']['images']['title'] == '동심원들과 정사각형들'
+
