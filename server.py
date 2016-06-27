@@ -119,5 +119,35 @@ def artist_image(artist_id, image_id):
 
     return jsonify(return_json)
 
+
+@app.route("/images", methods=['GET', 'POST', 'DELETE'])
+def images():
+
+    return_json = {}
+
+    if request.method == 'POST':
+
+        image_url = request.form['image_url']
+        title = request.form['title']
+        year = request.form['year']
+        artist_id = request.form['artist_id']
+        description = request.form['description']
+
+        print(image_url, title, year, artist_id, description)
+
+        return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+
+    elif request.method == 'GET':
+        filed = request.args.get('filed', '')
+        page = request.args.get('page', 1)
+
+        return_json = ImageController.get_images(filed, page)
+
+    elif request.method == 'DELETE':
+
+        return_json = ImageController.delete_artist_images()
+
+    return jsonify(return_json)
+
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8009)

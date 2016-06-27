@@ -168,3 +168,18 @@ def put_artist_image(image_id, image_url, title, year, artist_id, description):
         json_data = item.to_dict(item, filed_list)
 
     return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
+
+
+def get_images(filed=None, page=None):
+    image_model = ImageModel.ImageModel()
+    image_list, filed_list = image_model.get(filed, None, None)
+    #객체가 아닌 int 형일 경우 에러 코드로 판단
+    if isinstance(image_list, int):
+        #알 수 없는 컬럼일 경우
+        if image_list == 1054:
+            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
+    json_data_list = []
+    for item in image_list:
+        json_data_list.append(item.to_dict(item, filed_list))
+
+    return {'status': "200", 'data': json_data_list, 'message': "success"}

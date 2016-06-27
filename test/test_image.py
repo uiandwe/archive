@@ -88,7 +88,6 @@ def test_artist_image_put():
     print(return_json)
     assert return_json['code'] == "UnknownFiled"
 
-
     image_id = 73
     return_json = ImageController.put_artist_image(image_id, image_url, title, year, artist_id, description)
     print(return_json)
@@ -96,6 +95,12 @@ def test_artist_image_put():
     assert return_json['data']['year'] == 1000
 
 
+def test_images_get():
 
+    return_json = ImageController.get_images("ids")
+    print(return_json)
+    assert return_json['code'] == 'UnknownFiled'
 
+    return_json = ImageController.get_images()
+    assert return_json['data'][0]['artist_id'] == 102
 

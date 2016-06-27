@@ -50,6 +50,8 @@ class ImageModel():
         if artist_id is not None and artist_id > 0 and image_id > 0:
             sql = "SELECT "+filed+"  FROM images as i, artists as a where a.id = i.artist_id and i.id = "+str(image_id)+\
                   " and a.id = "+str(artist_id)
+        if artist_id is None and image_id is None:
+            sql = "SELECT "+filed+"  FROM images "
 
         cur = dc.find(sql)
         #에러일 경우 tuple 리턴
