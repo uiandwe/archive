@@ -47,7 +47,7 @@ class ImageModel():
         if image_id is not None and image_id > 0 and artist_id is None:
             sql = "SELECT "+filed+"  FROM images where id = "+str(image_id)
 
-        if artist_id > 0 and image_id > 0:
+        if artist_id is not None and artist_id > 0 and image_id > 0:
             sql = "SELECT "+filed+"  FROM images as i, artists as a where a.id = i.artist_id and i.id = "+str(image_id)+\
                   " and a.id = "+str(artist_id)
 
@@ -111,7 +111,7 @@ class ImageModel():
 
         return cur
 
-    def update(self, instance_artist, artist_id):
+    def update(self, instance_artist, image_id):
 
         artist_dict = instance_artist.__dict__
         update_set_list = []
@@ -125,7 +125,7 @@ class ImageModel():
 
         update_set_list = ",".join(update_set_list)
 
-        sql = "update artists set "+update_set_list+" where id ="+str(artist_id)
+        sql = "update images set "+update_set_list+" where id ="+str(image_id)
         cur = dc.update(sql)
 
         return cur
