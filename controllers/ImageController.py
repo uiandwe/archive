@@ -50,6 +50,9 @@ def post_artist_image(image_url, title, year, artist_id, description):
             or year == "" or artist_id is None or artist_id == "" or description is None or description == "":
         return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
 
+    if float(year) is False:
+        return {'status': "400", 'code': "InvalidInput", 'message': "파라미터의 데이터형이 맞지 않습니다."}
+
     if len(image_url) > 255 or len(title) > 255 or len(description) > 255:
         return {'status': "400", 'code': "OutOfRangeInput", 'message': "파라미터의 값이 최대 제한 범위를 넘었습니다"}
 

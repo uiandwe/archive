@@ -16,23 +16,46 @@ def test_artist_images_get():
 
 # def test_artist_images_delete():
 #
-#     return_json = ImageController.delete_artist_images(102)
-#     print(return_value)
+#     return_json = ImageController.delete_artist_images(103)
+#     print(return_json)
 #     assert return_json['code'] == 200
 
 
 def test_artist_images_post():
 
-    image_url = "test"
-    title = "1111"
-    year = "1985"
-    artist_id = 103
-    description = "현승재"
-    print(image_url, title, year, artist_id, description)
+    image_url = "1"
+    title = "2"
+    year = 1000
+    artist_id = 100
+    description = "Test"
 
     return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    assert return_json['code'] == "NotInput"
 
-    assert return_json['code'] == 200
+    image_url = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" \
+                "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" \
+                "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
+    return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    print(return_json)
+    assert return_json['code'] == "OutOfRangeInput"
+
+    image_url = ""
+    return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    print(return_json)
+    assert return_json['code'] == "NotInput"
+
+    image_url = "1"
+    year = "1000"
+    return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    print(return_json)
+    assert return_json['code'] == "NotInput"
+
+    year = 1000
+    artist_id = 103
+    return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    print(return_json)
+
+    assert return_json['data']['year'] == 1000
 
 
 def test_artist_image_get():
@@ -104,9 +127,44 @@ def test_images_get():
     return_json = ImageController.get_images()
     assert return_json['data'][0]['artist_id'] == 102
 
+def test_images_post():
+
+    image_url = "1"
+    title = "2"
+    year = 1000
+    artist_id = 100
+    description = "Test"
+
+    return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    assert return_json['code'] == "NotInput"
+
+    image_url = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" \
+                "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" \
+                "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
+    return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    print(return_json)
+    assert return_json['code'] == "OutOfRangeInput"
+
+    image_url = ""
+    return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    print(return_json)
+    assert return_json['code'] == "NotInput"
+
+    image_url = "1"
+    year = "1000"
+    return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    print(return_json)
+    assert return_json['code'] == "NotInput"
+
+    year = 1000
+    artist_id = 103
+    return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
+    print(return_json)
+
+    assert return_json['data']['year'] == 1000
+
 
 # def test_images_delete():
 #     return_json = ImageController.delete_images()
 #     print(return_json)
 #     assert return_json['code'] == 200
-
