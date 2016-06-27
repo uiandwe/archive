@@ -95,5 +95,31 @@ def artist_images(artist_id):
     return jsonify(return_json)
 
 
+@app.route("/artists/<int:artist_id>/images/<int:image_id>", methods=['GET', 'PUT', 'DELETE'])
+def artist_image(artist_id, image_id):
+
+    return_json = {}
+
+    if request.method == 'PUT':
+
+        image_url = request.form['image_url']
+        title = request.form['title']
+        year = request.form['year']
+        description = request.form['description']
+        print(image_url, title, year, artist_id, description)
+
+        return_json = ImageController.put_artist_image(image_id, image_url, title, year, artist_id, description)
+
+    elif request.method == 'GET':
+        filed = request.args.get('filed', '')
+        page = request.args.get('page', 1)
+
+        return_json = ImageController.get_artist_image(artist_id, image_id, filed)
+    elif request.method == 'DELETE':
+
+        return_json = ImageController.delete_artist_images(artist_id)
+
+    return jsonify(return_json)
+
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8009)

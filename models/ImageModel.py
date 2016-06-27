@@ -41,10 +41,13 @@ class ImageModel():
 
         sql = ""
         #todo 쿼리 정리하기
-        if artist_id is not None:
-            sql = "SELECT "+filed+"  FROM artists as a, images as i where a.id = i.artist_id and a.id = "+str(artist_id)
+        if artist_id is not None and artist_id > 0 and image_id is None:
+            sql = "SELECT "+filed+"  FROM images where artist_id = "+str(artist_id)
 
-        if artist_id is None and image_id > 0:
+        if image_id is not None and image_id > 0 and artist_id is None:
+            sql = "SELECT "+filed+"  FROM images where id = "+str(image_id)
+
+        if artist_id > 0 and image_id > 0:
             sql = "SELECT "+filed+"  FROM images where id = "+str(image_id)
 
         cur = dc.find(sql)
