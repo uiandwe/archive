@@ -1,5 +1,4 @@
 #-*- coding: utf-8 -*-
-__author__ = 'hyeonsj'
 import pytest
 
 from controllers.DbController import DbController
@@ -51,3 +50,9 @@ def test_artist_image_get():
 
     assert return_json['data']['images']['title'] == '동심원들과 정사각형들'
 
+
+def test_artist_image_delete():
+
+    return_json = ImageController.delete_artist_images(103, 70)
+    print(return_json)
+    assert return_json['code'] == 200

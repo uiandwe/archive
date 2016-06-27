@@ -12,8 +12,8 @@ dc = DbController()
 def test_artists_get():
     filed = "name"
     page = 0
-    artist_Model = ArtistModel.ArtistModel()
-    artist_list, filed_list = artist_Model.get(filed)
+    artist_model = ArtistModel.ArtistModel()
+    artist_list, filed_list = artist_model.get(filed)
 
     # assert len(artist_list) == 50
 
@@ -27,7 +27,6 @@ def test_artists_get():
     # assert return_value
 
 def test_artists_post():
-
 
     name = ""
     birth_year = 1000

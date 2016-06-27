@@ -34,11 +34,11 @@ def get_artist_images(artist_id, filed=None, page=None):
     return {'status': "200", 'data': data_dict, 'message': "success"}
 
 
-def delete_artist_images(artist_id):
+def delete_artist_images(artist_id, image_id=None):
     image_model = ImageModel.ImageModel()
-    return_value = image_model.delete(artist_id)
+    return_value = image_model.delete(artist_id, image_id)
     if return_value:
-        return {'status': "200", 'data': "", 'message': "삭제를 완료하였습니다."}
+        return {'status': "200", 'code': 200, 'data': "", 'message': "삭제를 완료하였습니다."}
     else:
         if isinstance(return_value[0], int):
             return {'status': "403", 'code': "Forbidden", 'data': "", 'message': return_value[1]}
@@ -48,16 +48,16 @@ def post_artist_image(image_url, title, year, artist_id, description):
 
     if image_url is None or image_url == "" or title is None or title == "" or year is None \
             or year == "" or artist_id is None or artist_id == "" or description is None or description == "":
-        return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다." }
+        return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
 
     if len(image_url) > 255 or len(title) > 255 or len(description) > 255:
-        return {'status': "400", 'code': "OutOfRangeInput", 'message': "파라미터의 값이 최대 제한 범위를 넘었습니다" }
+        return {'status': "400", 'code': "OutOfRangeInput", 'message': "파라미터의 값이 최대 제한 범위를 넘었습니다"}
 
     # fk인 artist_id의 값이 artists 테이블에 있는지 확인
     artist_model = ArtistModel.ArtistModel()
     artist_list, filed_list = artist_model.get(None, artist_id)
     if len(artist_list) <= 0:
-        return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다." }
+        return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
 
     image = ImageModel.ImageModel().Image()
     image.image_url = image_url

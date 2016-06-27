@@ -72,8 +72,8 @@ class ImageModel():
 
         delete_and = ""
 
-        if image_id:
-            delete_and = "and id = "+str(image_id)+" "
+        if image_id is not None:
+            delete_and = " and id = "+str(image_id)+" "
 
         sql = "delete from images where artist_id = " + str(artist_id) + delete_and
         cur = dc.delete(sql)
@@ -122,7 +122,6 @@ class ImageModel():
                     update_set_list.append(artist_columns+"='"+artist_dict[artist_columns]+"'")
                 else:
                     update_set_list.append(artist_columns+"="+str(artist_dict[artist_columns]))
-
 
         update_set_list = ",".join(update_set_list)
 
