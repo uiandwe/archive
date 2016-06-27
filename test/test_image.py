@@ -26,13 +26,13 @@ def test_artist_images_post():
     image_url = "test"
     title = "1111"
     year = "1985"
-    artist_id = 100
+    artist_id = 103
     description = "현승재"
     print(image_url, title, year, artist_id, description)
 
     return_json = ImageController.post_artist_image(image_url, title, year, artist_id, description)
 
-    assert return_json['code'] == "NotInput"
+    assert return_json['code'] == 200
 
 
 def test_artist_image_get():
@@ -88,7 +88,7 @@ def test_artist_image_put():
     print(return_json)
     assert return_json['code'] == "UnknownFiled"
 
-    image_id = 73
+    image_id = 66
     return_json = ImageController.put_artist_image(image_id, image_url, title, year, artist_id, description)
     print(return_json)
 
@@ -103,4 +103,10 @@ def test_images_get():
 
     return_json = ImageController.get_images()
     assert return_json['data'][0]['artist_id'] == 102
+
+
+# def test_images_delete():
+#     return_json = ImageController.delete_images()
+#     print(return_json)
+#     assert return_json['code'] == 200
 

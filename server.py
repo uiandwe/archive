@@ -145,7 +145,7 @@ def images():
 
     elif request.method == 'DELETE':
 
-        return_json = ImageController.delete_artist_images()
+        return_json = ImageController.delete_images()
 
     return jsonify(return_json)
 

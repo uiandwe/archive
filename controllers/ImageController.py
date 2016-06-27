@@ -183,3 +183,13 @@ def get_images(filed=None, page=None):
         json_data_list.append(item.to_dict(item, filed_list))
 
     return {'status': "200", 'data': json_data_list, 'message': "success"}
+
+
+def delete_images():
+    image_model = ImageModel.ImageModel()
+    return_value = image_model.delete()
+    if return_value:
+        return {'status': "200", 'code': 200, 'data': "", 'message': "삭제를 완료하였습니다."}
+    else:
+        if isinstance(return_value[0], int):
+            return {'status': "403", 'code': "Forbidden", 'data': "", 'message': return_value[1]}

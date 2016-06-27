@@ -70,7 +70,7 @@ class ImageModel():
 
         return return_instance_list, filed_list
 
-    def delete(self, artist_id, image_id=None):
+    def delete(self, artist_id=None, image_id=None):
 
         delete_and = ""
 
@@ -78,6 +78,9 @@ class ImageModel():
             delete_and = " and id = "+str(image_id)+" "
 
         sql = "delete from images where artist_id = " + str(artist_id) + delete_and
+
+        if artist_id is None and image_id is None:
+            sql = "delete from images "
         cur = dc.delete(sql)
 
         if type(cur) is tuple:
