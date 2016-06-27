@@ -49,7 +49,7 @@ class ImageModel():
             sql = "SELECT "+filed+"  FROM images where id = "+str(image_id)
 
         # /artists/:id/images/:id
-        if artist_id is not None and image_id > 0:
+        if artist_id is not None and image_id is not None and image_id > 0:
             sql = "SELECT "+filed+"  FROM images as i, artists as a where a.id = i.artist_id and i.id = "+str(image_id)+\
                   " and a.id = "+str(artist_id)
 

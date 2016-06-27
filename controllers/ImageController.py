@@ -3,6 +3,7 @@ from models import ArtistModel, ImageModel
 
 
 def get_artist_images(artist_id, filed=None, page=None):
+
     image_model = ImageModel.ImageModel()
     image_list, filed_list = image_model.get(filed, artist_id, None)
 
