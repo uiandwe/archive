@@ -40,18 +40,26 @@ class ImageModel():
                 filed_list.append(item)
 
         sql = ""
-        #todo 쿼리 정리하기
-        if artist_id is not None and artist_id > 0 and image_id is None:
+        # /artists
+        if artist_id is not None and image_id is None:
             sql = "SELECT "+filed+"  FROM images where artist_id = "+str(artist_id)
 
+        # /aritsts/:id
         if image_id is not None and image_id > 0 and artist_id is None:
             sql = "SELECT "+filed+"  FROM images where id = "+str(image_id)
 
-        if artist_id is not None and artist_id > 0 and image_id > 0:
+        # /artists/:id/images/:id
+        if artist_id is not None and image_id > 0:
             sql = "SELECT "+filed+"  FROM images as i, artists as a where a.id = i.artist_id and i.id = "+str(image_id)+\
                   " and a.id = "+str(artist_id)
+
+        # /images
         if artist_id is None and image_id is None:
             sql = "SELECT "+filed+"  FROM images "
+
+        # /images/:id
+        if artist_id is None and image_id is not None:
+            sql = "SELECT "+filed+"  FROM images where id = "+str(image_id)
 
         cur = dc.find(sql)
         #에러일 경우 tuple 리턴
@@ -74,13 +82,17 @@ class ImageModel():
 
         delete_and = ""
 
-        if image_id is not None:
+        if artist_id is not None and artist_id > 0 and image_id is not None:
             delete_and = " and id = "+str(image_id)+" "
 
         sql = "delete from images where artist_id = " + str(artist_id) + delete_and
-
+        # /images
         if artist_id is None and image_id is None:
             sql = "delete from images "
+        # /images/:id
+        if artist_id is None and image_id > 0:
+            sql = "delete from images where id = "+str(image_id)
+
         cur = dc.delete(sql)
 
         if type(cur) is tuple:

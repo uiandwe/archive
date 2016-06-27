@@ -131,7 +131,7 @@ def put_artist_image(image_id, image_url, title, year, artist_id, description):
     if image_url is None or image_url == "" or title is None or title == "" or year is None \
             or year == "" or artist_id is None or artist_id == "" or description is None or description == "":
         return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
-    if float(year) is False:
+    if type(year) != int and int(year) is False:
         return {'status': "400", 'code': "InvalidInput", 'message': "파라미터의 데이터형이 맞지 않습니다."}
     if len(image_url) > 255 or len(title) > 255 or len(description) > 255:
         return {'status': "400", 'code': "OutOfRangeInput", 'message': "파라미터의 값이 최대 제한 범위를 넘었습니다"}
@@ -143,8 +143,8 @@ def put_artist_image(image_id, image_url, title, year, artist_id, description):
         return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
 
     image_model = ImageModel.ImageModel()
-    image_list, filed_list = image_model.get(None, artist_id, image_id)
 
+    image_list, filed_list = image_model.get(None, artist_id, image_id)
     #해당 하는 데이터가 없다면 에러 코드 리턴
     if len(image_list) <= 0:
         return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': "잘못된 파라미터 요청입니다."}
@@ -191,6 +191,35 @@ def get_images(filed=None, page=None):
 def delete_images():
     image_model = ImageModel.ImageModel()
     return_value = image_model.delete()
+    if return_value:
+        return {'status': "200", 'code': 200, 'data': "", 'message': "삭제를 완료하였습니다."}
+    else:
+        if isinstance(return_value[0], int):
+            return {'status': "403", 'code': "Forbidden", 'data': "", 'message': return_value[1]}
+
+
+def get_image(image_id, filed=None):
+    image_model = ImageModel.ImageModel()
+    image_list, filed_list = image_model.get(filed, None, image_id)
+
+    #객체가 아닌 int 형일 경우 에러 코드로 판단
+    if isinstance(image_list, int):
+        #알 수 없는 컬럼일 경우
+        if image_list == 1054:
+            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
+    #해당 하는 데이터가 없다면 에러 코드 리턴
+    if len(image_list) <= 0:
+        return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': "잘못된 파라미터 요청입니다."}
+    json_data_list = []
+    for item in image_list:
+        json_data_list.append(item.to_dict(item, filed_list))
+
+    return {'status': "200", 'data': json_data_list, 'message': "success"}
+
+
+def delete_image(image_id):
+    image_model = ImageModel.ImageModel()
+    return_value = image_model.delete(None, image_id)
     if return_value:
         return {'status': "200", 'code': 200, 'data': "", 'message': "삭제를 완료하였습니다."}
     else:
