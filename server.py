@@ -106,7 +106,6 @@ def artist_image(artist_id, image_id):
         title = request.form['title']
         year = request.form['year']
         description = request.form['description']
-        print(image_url, title, year, artist_id, description)
 
         return_json = ImageController.put_artist_image(image_id, image_url, title, year, artist_id, description)
 
