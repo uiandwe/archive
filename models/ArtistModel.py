@@ -70,16 +70,10 @@ class ArtistModel():
             return True
 
     def insert(self, instance_artist):
-
         mb = ModelsBase()
         insert_columns, insert_values = mb.insert_instance_to_str(instance_artist)
 
-        sql = "insert into artists("+insert_columns+") value("+insert_values+")"
-
-        dc.exec(sql)
-
-        sql = "SELECT LAST_INSERT_ID();"
-        cur = dc.exec(sql)
+        cur = mb.insert_exec("artists", insert_columns, insert_values)
 
         return cur
 
@@ -87,7 +81,6 @@ class ArtistModel():
         mb = ModelsBase()
         update_set_list = mb.update_instance_to_str(instance_artist)
 
-        sql = "update artists set "+update_set_list+" where id ="+str(artist_id)
-        cur = dc.exec(sql)
+        cur = mb.update_exec("artists", update_set_list, artist_id)
 
         return cur

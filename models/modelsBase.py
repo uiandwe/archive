@@ -1,4 +1,6 @@
 __author__ = 'hyeonsj'
+from controllers import DbController
+dc = DbController.DbController()
 
 
 class ModelsBase():
@@ -53,3 +55,20 @@ class ModelsBase():
 
         update_set_list = ",".join(update_set_list)
         return update_set_list
+
+    # model들의 insert문
+    def insert_exec(self, table_name, insert_columns, insert_values):
+
+        sql = "insert into "+table_name+"("+insert_columns+") value("+insert_values+")"
+        dc.exec(sql)
+
+        sql = "SELECT LAST_INSERT_ID();"
+        cur = dc.exec(sql)
+
+        return cur
+
+    # model들의 update문
+    def update_exec(self, table_name, update_values, table_id):
+        sql = "update "+table_name+" set "+update_values+" where id ="+str(table_id)
+        cur = dc.exec(sql)
+        return cur

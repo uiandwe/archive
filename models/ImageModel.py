@@ -4,7 +4,7 @@ from controllers import DbController
 dc = DbController.DbController()
 
 
-class ImageModel():
+class ImageModel(ModelsBase):
 
     class Image(ModelsBase):
         def __init__(self):
@@ -95,23 +95,16 @@ class ImageModel():
 
     def insert(self, instance_image):
 
-        mb = ModelsBase()
-        insert_columns, insert_values = mb.insert_instance_to_str(instance_image)
+        insert_columns, insert_values = ModelsBase.insert_instance_to_str(instance_image)
 
-        sql = "insert into images("+insert_columns+") value("+insert_values+")"
-        dc.exec(sql)
-
-        sql = "SELECT LAST_INSERT_ID();"
-        cur = dc.exec(sql)
+        cur = ModelsBase.insert_exec("images", insert_columns, insert_values)
 
         return cur
 
     def update(self, instance_image, image_id):
 
-        mb = ModelsBase()
-        update_set_list = mb.update_instance_to_str(instance_image)
+        update_set_list = ModelsBase.update_instance_to_str(instance_image)
 
-        sql = "update images set "+update_set_list+" where id ="+str(image_id)
-        cur = dc.exec(sql)
+        cur = ModelsBase.update_exec("images", update_set_list, image_id)
 
         return cur
