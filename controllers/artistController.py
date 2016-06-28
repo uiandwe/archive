@@ -19,11 +19,7 @@ def get_artists(filed, page):
 def delete_all_artists():
     artist_model = ArtistModel.ArtistModel()
     return_value = artist_model.delete()
-    if return_value:
-        return {'status': "200", 'data': "", 'message': "삭제를 완료하였습니다."}
-    else:
-        if isinstance(return_value[0], int):
-            return {'status': "403", 'code': "Forbidden", 'data': "", 'message': return_value[1]}
+    return ControllerBase.check_sql_delete_error(return_value)
 
 
 def post_artists(name, birth_year=None, death_year=None, country=None, genre=None):
@@ -77,11 +73,7 @@ def get_artist(filed, artist_id):
 def delete_artists(artist_id):
     artist_model = ArtistModel.ArtistModel()
     return_value = artist_model.delete(artist_id)
-    if return_value:
-        return {'status': "200", 'code': 200, 'data': "", 'message': "삭제를 완료하였습니다."}
-    else:
-        if isinstance(return_value[0], int):
-            return {'status': "403", 'code': "Forbidden", 'data': "", 'message': return_value[1]}
+    return ControllerBase.check_sql_delete_error(return_value)
 
 
 def update_artist(artist_id, name=None, birth_year=None, death_year=None, country=None, genre=None):

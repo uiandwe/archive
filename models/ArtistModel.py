@@ -74,7 +74,7 @@ class ArtistModel():
         insert_columns, insert_values = mb.insert_instance_to_str(instance_artist)
 
         cur = mb.insert_exec("artists", insert_columns, insert_values)
-
+        print(cur)
         return cur
 
     def update(self, instance_artist, artist_id):

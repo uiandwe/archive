@@ -17,9 +17,9 @@ class ModelsBase():
     # insert시 해당 class 객체의 파라미터를 sql문법에 맞게 변환시키는 함수
     # artist.name = tumblbug -> name , tumblbug로 뽑은 다음 -> insert into artists(name) values('tumblbug')로 변환
     def insert_instance_to_str(self, instance):
+
         # 해당 instance의 파라미터들을 dict 형태로 변환
         instance_dict = instance.__dict__
-
         columns_list = []
         values_list = []
         columns = instance_dict.keys()
@@ -64,7 +64,7 @@ class ModelsBase():
 
         sql = "SELECT LAST_INSERT_ID();"
         cur = dc.exec(sql)
-
+        print(cur)
         return cur
 
     # model들의 update문

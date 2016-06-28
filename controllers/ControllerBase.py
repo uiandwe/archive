@@ -22,3 +22,12 @@ def sql_to_dict(sql_data, sql_filed):
         return json_data_list[0]
 
     return json_data_list
+
+
+# delete 리턴값에 대한 에러 처리
+def check_sql_delete_error(sql_code):
+    if sql_code:
+        return {'status': "200", 'code': 200, 'data': "", 'message': "삭제를 완료하였습니다."}
+    else:
+        if isinstance(sql_code[0], int):
+            return {'status': "403", 'code': "Forbidden", 'data': "", 'message': sql_code[1]}
