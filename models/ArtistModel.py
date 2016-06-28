@@ -1,11 +1,12 @@
 __author__ = 'hyeonsj'
+from models.modelsBase import ModelsBase
 from controllers import DbController
 dc = DbController.DbController()
 
 
 class ArtistModel():
 
-    class Artist():
+    class Artist(ModelsBase):
         def __init__(self):
             self.id = 0
             self.name = ""
@@ -13,15 +14,6 @@ class ArtistModel():
             self.death_year = 0
             self.country = ""
             self.genre = ""
-
-        def set(self, instance, column, value):
-            setattr(instance, column, value)
-
-        def to_dict(self, instance, filed_list):
-            return_dict = dict()
-            for filed in filed_list:
-                return_dict[filed] = getattr(instance, filed)
-            return return_dict
 
     def get(self, filed=None, artist_id=None):
 
