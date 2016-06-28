@@ -1,5 +1,5 @@
 __author__ = 'hyeonsj'
-from controllers import DbController, artistController
+from controllers import DbController
 dc = DbController.DbController()
 
 
@@ -31,7 +31,7 @@ class ArtistModel():
         if filed is None or filed is '':
             filed = "*"
             sql = " SHOW COLUMNS FROM artists; "
-            cur = dc.find(sql)
+            cur = dc.exec(sql)
 
             for item in cur:
                 filed_list.append(item[0])
@@ -44,7 +44,7 @@ class ArtistModel():
         if artist_id is not None:
             sql += " where id = "+str(artist_id)
 
-        cur = dc.find(sql)
+        cur = dc.exec(sql)
         #에러일 경우 tuple 리턴
         if type(cur) is tuple:
             return cur
@@ -69,7 +69,7 @@ class ArtistModel():
             delete_where = "where id = "+str(artist_id)+" "
 
         sql = "delete from artists " + delete_where
-        cur = dc.delete(sql)
+        cur = dc.exec(sql)
 
         if type(cur) is tuple:
             return cur
@@ -97,10 +97,10 @@ class ArtistModel():
         insert_values = ",".join(insert_values)
 
         sql = "insert into artists("+insert_columns+") value("+insert_values+")"
-        dc.insert(sql)
+        dc.exec(sql)
 
         sql = "SELECT LAST_INSERT_ID();"
-        cur = dc.find(sql)
+        cur = dc.exec(sql)
 
         return cur
 
@@ -120,6 +120,6 @@ class ArtistModel():
         update_set_list = ",".join(update_set_list)
 
         sql = "update artists set "+update_set_list+" where id ="+str(artist_id)
-        cur = dc.update(sql)
+        cur = dc.exec(sql)
 
         return cur

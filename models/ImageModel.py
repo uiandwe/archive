@@ -31,7 +31,7 @@ class ImageModel():
         if filed is None or filed is '':
             filed = "*"
             sql = " SHOW COLUMNS FROM images; "
-            cur = dc.find(sql)
+            cur = dc.exec(sql)
 
             for item in cur:
                 filed_list.append(item[0])
@@ -61,7 +61,7 @@ class ImageModel():
         if artist_id is None and image_id is not None:
             sql = "SELECT "+filed+"  FROM images where id = "+str(image_id)
 
-        cur = dc.find(sql)
+        cur = dc.exec(sql)
         #에러일 경우 tuple 리턴
         if type(cur) is tuple:
             return cur
@@ -93,7 +93,7 @@ class ImageModel():
         if artist_id is None and image_id > 0:
             sql = "delete from images where id = "+str(image_id)
 
-        cur = dc.delete(sql)
+        cur = dc.exec(sql)
 
         if type(cur) is tuple:
             return cur
@@ -121,10 +121,10 @@ class ImageModel():
         insert_values = ",".join(insert_values)
 
         sql = "insert into images("+insert_columns+") value("+insert_values+")"
-        dc.insert(sql)
+        dc.exec(sql)
 
         sql = "SELECT LAST_INSERT_ID();"
-        cur = dc.find(sql)
+        cur = dc.exec(sql)
 
         return cur
 
@@ -143,6 +143,6 @@ class ImageModel():
         update_set_list = ",".join(update_set_list)
 
         sql = "update images set "+update_set_list+" where id ="+str(image_id)
-        cur = dc.update(sql)
+        cur = dc.exec(sql)
 
         return cur

@@ -31,37 +31,14 @@ class DbController:
             print(">>>>>>>>>>>>>", code, message)
             return code, message
 
-    def exec(self, sql, type_def):
+    def exec(self, sql):
         try:
             self.cur.execute(sql)
             self.conn.commit()
 
-            if type_def == "insert":
-                sql = "SELECT LAST_INSERT_ID();"
-                self.cur.execute(sql)
-                return self.cur
             return self.cur
 
         except pymysql.InternalError as error:
             code, message = error.args
             print(">>>>>>>>>>>>>", code, message)
             return code, message
-
-    def find(self, sql):
-        try:
-            self.cur.execute(sql)
-            return self.cur
-
-        except pymysql.InternalError as error:
-            code, message = error.args
-            print(">>>>>>>>>>>>>", code, message)
-            return code, message
-
-    def insert(self, sql):
-        self.exec(sql, "insert")
-
-    def update(self, sql):
-        self.exec(sql, "update")
-
-    def delete(self, sql):
-        self.exec(sql, "delete")
