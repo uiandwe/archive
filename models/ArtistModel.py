@@ -71,24 +71,11 @@ class ArtistModel():
 
     def insert(self, instance_artist):
 
-        artist_dict = instance_artist.__dict__
-
-        insert_columns = []
-        insert_values = []
-        columns = artist_dict.keys()
-        for artist_columns in columns:
-            if artist_columns is not "id":
-                if artist_dict[artist_columns] is not None and artist_dict[artist_columns] != "":
-                    insert_columns.append(artist_columns)
-                    if type(artist_dict[artist_columns]) is str:
-                        insert_values.append("'"+artist_dict[artist_columns]+"'")
-                    else:
-                        insert_values.append(str(artist_dict[artist_columns]))
-
-        insert_columns = ",".join(insert_columns)
-        insert_values = ",".join(insert_values)
+        mb = ModelsBase()
+        insert_columns, insert_values = mb.insert_instance_to_str(instance_artist)
 
         sql = "insert into artists("+insert_columns+") value("+insert_values+")"
+
         dc.exec(sql)
 
         sql = "SELECT LAST_INSERT_ID();"
@@ -97,19 +84,8 @@ class ArtistModel():
         return cur
 
     def update(self, instance_artist, artist_id):
-
-        artist_dict = instance_artist.__dict__
-        update_set_list = []
-        columns = artist_dict.keys()
-        for artist_columns in columns:
-            if artist_columns is not "id":
-                if type(artist_dict[artist_columns]) is str:
-                    update_set_list.append(artist_columns+"='"+artist_dict[artist_columns]+"'")
-                else:
-                    update_set_list.append(artist_columns+"="+str(artist_dict[artist_columns]))
-
-
-        update_set_list = ",".join(update_set_list)
+        mb = ModelsBase()
+        update_set_list = mb.update_instance_to_str(instance_artist)
 
         sql = "update artists set "+update_set_list+" where id ="+str(artist_id)
         cur = dc.exec(sql)

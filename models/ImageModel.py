@@ -93,24 +93,10 @@ class ImageModel():
         else:
             return True
 
-    def insert(self, instance_artist):
+    def insert(self, instance_image):
 
-        image_dict = instance_artist.__dict__
-
-        insert_columns = []
-        insert_values = []
-        columns = image_dict.keys()
-        for artist_columns in columns:
-            if artist_columns is not "id":
-                if image_dict[artist_columns] is not None and image_dict[artist_columns] != "":
-                    insert_columns.append(artist_columns)
-                    if type(image_dict[artist_columns]) is str:
-                        insert_values.append("'"+image_dict[artist_columns]+"'")
-                    else:
-                        insert_values.append(str(image_dict[artist_columns]))
-
-        insert_columns = ",".join(insert_columns)
-        insert_values = ",".join(insert_values)
+        mb = ModelsBase()
+        insert_columns, insert_values = mb.insert_instance_to_str(instance_image)
 
         sql = "insert into images("+insert_columns+") value("+insert_values+")"
         dc.exec(sql)
@@ -120,19 +106,10 @@ class ImageModel():
 
         return cur
 
-    def update(self, instance_artist, image_id):
+    def update(self, instance_image, image_id):
 
-        artist_dict = instance_artist.__dict__
-        update_set_list = []
-        columns = artist_dict.keys()
-        for artist_columns in columns:
-            if artist_columns is not "id":
-                if type(artist_dict[artist_columns]) is str:
-                    update_set_list.append(artist_columns+"='"+artist_dict[artist_columns]+"'")
-                else:
-                    update_set_list.append(artist_columns+"="+str(artist_dict[artist_columns]))
-
-        update_set_list = ",".join(update_set_list)
+        mb = ModelsBase()
+        update_set_list = mb.update_instance_to_str(instance_image)
 
         sql = "update images set "+update_set_list+" where id ="+str(image_id)
         cur = dc.exec(sql)

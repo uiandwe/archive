@@ -46,11 +46,7 @@ def post_artists(name, birth_year=None, death_year=None, country=None, genre=Non
     artist.genre = genre
 
     artist_model = ArtistModel.ArtistModel()
-    return_value, return_message = artist_model.insert(artist)
-
-    error_check = ControllerBase.check_sql_error(return_value, return_message)
-    if type(error_check) is dict:
-        return error_check
+    return_value = artist_model.insert(artist)
 
     artist_id = 0
     for artist_data in return_value:
