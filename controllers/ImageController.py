@@ -1,5 +1,6 @@
 __author__ = 'hyeonsj'
 from models import ArtistModel, ImageModel
+from controllers import ControllerBase
 
 
 def get_artist_images(artist_id, filed=None, page=None):
@@ -7,30 +8,22 @@ def get_artist_images(artist_id, filed=None, page=None):
     image_model = ImageModel.ImageModel()
     image_list, filed_list = image_model.get(filed, artist_id, None)
 
-    #객체가 아닌 int 형일 경우 에러 코드로 판단
-    if isinstance(image_list, int):
-        #알 수 없는 컬럼일 경우
-        if image_list == 1054:
-            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
+    error_check = ControllerBase.check_sql_error(image_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
 
-    json_data_list = []
-    for item in image_list:
-        json_data_list.append(item.to_dict(item, filed_list))
     data_dict = dict()
-    data_dict['images'] = json_data_list
+    data_dict['images'] = ControllerBase.sql_to_dict(image_list, filed_list)
 
     artist_model = ArtistModel.ArtistModel()
 
     artist_list, filed_list = artist_model.get(filed, artist_id)
 
-    #객체가 아닌 int 형일 경우 에러 코드로 판단
-    if isinstance(artist_list, int):
-        #알 수 없는 컬럼일 경우
-        if artist_list == 1054:
-            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
+    error_check = ControllerBase.check_sql_error(artist_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
 
-    for item in artist_list:
-        data_dict['artist'] = item.to_dict(item, filed_list)
+    data_dict['artist'] = ControllerBase.sql_to_dict(artist_list, filed_list)
 
     return {'status': "200", 'data': data_dict, 'message': "success"}
 
@@ -71,11 +64,11 @@ def post_artist_image(image_url, title, year, artist_id, description):
     image.description = description
 
     image_model = ImageModel.ImageModel()
-    return_value = image_model.insert(image)
+    return_value, return_message = image_model.insert(image)
 
-    if type(return_value) is tuple:
-        if isinstance(return_value[0], int):
-            return {'status': "403", 'code': return_value[0], 'data': "", 'message': return_value[1]}
+    error_check = ControllerBase.check_sql_error(return_value, return_message)
+    if type(error_check) is dict:
+        return error_check
 
     image_id = 0
     for image_data in return_value:
@@ -84,9 +77,7 @@ def post_artist_image(image_url, title, year, artist_id, description):
     # insert 한 데이터 select
     instance_image, filed_list = image_model.get(None, None, image_id)
 
-    json_data = dict()
-    for item in instance_image:
-        json_data = item.to_dict(item, filed_list)
+    json_data = ControllerBase.sql_to_dict(instance_image, filed_list)
 
     return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
 
@@ -95,34 +86,22 @@ def get_artist_image(artist_id, image_id, filed=None):
     image_model = ImageModel.ImageModel()
     image_list, filed_list = image_model.get(filed, artist_id, image_id)
 
-    #해당 하는 데이터가 없다면 에러 코드 리턴
-    if len(image_list) <= 0:
-        return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': "잘못된 파라미터 요청입니다."}
+    error_check = ControllerBase.check_sql_error(image_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
 
-    #객체가 아닌 int 형일 경우 에러 코드로 판단
-    if isinstance(image_list, int):
-        #알 수 없는 컬럼일 경우
-        if image_list == 1054:
-            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
-
-    json_image = dict()
-    for item in image_list:
-        json_image = item.to_dict(item, filed_list)
     data_dict = dict()
-    data_dict['images'] = json_image
+    data_dict['images'] = ControllerBase.sql_to_dict(image_list, filed_list)
 
     artist_model = ArtistModel.ArtistModel()
 
     artist_list, filed_list = artist_model.get(filed, artist_id)
 
-    #객체가 아닌 int 형일 경우 에러 코드로 판단
-    if isinstance(artist_list, int):
-        #알 수 없는 컬럼일 경우
-        if artist_list == 1054:
-            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
+    error_check = ControllerBase.check_sql_error(artist_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
 
-    for item in artist_list:
-        data_dict['artist'] = item.to_dict(item, filed_list)
+    data_dict['artist'] = ControllerBase.sql_to_dict(artist_list, filed_list)
 
     return {'status': "200", 'data': data_dict, 'message': "success"}
 
@@ -146,9 +125,9 @@ def put_artist_image(image_id, image_url, title, year, artist_id, description):
     image_model = ImageModel.ImageModel()
 
     image_list, filed_list = image_model.get(None, artist_id, image_id)
-    #해당 하는 데이터가 없다면 에러 코드 리턴
-    if len(image_list) <= 0:
-        return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': "잘못된 파라미터 요청입니다."}
+    error_check = ControllerBase.check_sql_error(image_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
 
     image = ImageModel.ImageModel().Image()
     image.image_url = image_url
@@ -167,9 +146,7 @@ def put_artist_image(image_id, image_url, title, year, artist_id, description):
     # insert 한 데이터 select
     instance_image, filed_list = image_model.get(None, None, image_id)
 
-    json_data = dict()
-    for item in instance_image:
-        json_data = item.to_dict(item, filed_list)
+    json_data = ControllerBase.sql_to_dict(instance_image, filed_list)
 
     return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
 
@@ -177,14 +154,12 @@ def put_artist_image(image_id, image_url, title, year, artist_id, description):
 def get_images(filed=None, page=None):
     image_model = ImageModel.ImageModel()
     image_list, filed_list = image_model.get(filed, None, None)
-    #객체가 아닌 int 형일 경우 에러 코드로 판단
-    if isinstance(image_list, int):
-        #알 수 없는 컬럼일 경우
-        if image_list == 1054:
-            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
-    json_data_list = []
-    for item in image_list:
-        json_data_list.append(item.to_dict(item, filed_list))
+
+    error_check = ControllerBase.check_sql_error(image_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
+
+    json_data_list = ControllerBase.sql_to_dict(image_list, filed_list)
 
     return {'status': "200", 'data': json_data_list, 'message': "success"}
 
@@ -203,17 +178,11 @@ def get_image(image_id, filed=None):
     image_model = ImageModel.ImageModel()
     image_list, filed_list = image_model.get(filed, None, image_id)
 
-    #객체가 아닌 int 형일 경우 에러 코드로 판단
-    if isinstance(image_list, int):
-        #알 수 없는 컬럼일 경우
-        if image_list == 1054:
-            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
-    #해당 하는 데이터가 없다면 에러 코드 리턴
-    if len(image_list) <= 0:
-        return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': "잘못된 파라미터 요청입니다."}
-    json_data_list = []
-    for item in image_list:
-        json_data_list.append(item.to_dict(item, filed_list))
+    error_check = ControllerBase.check_sql_error(image_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
+
+    json_data_list = ControllerBase.sql_to_dict(image_list, filed_list)
 
     return {'status': "200", 'data': json_data_list, 'message': "success"}
 

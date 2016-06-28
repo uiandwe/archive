@@ -1,20 +1,17 @@
 __author__ = 'hyeonsj'
 from models import ArtistModel
+from controllers import ControllerBase
 
 
 def get_artists(filed, page):
     artist_model = ArtistModel.ArtistModel()
     artist_list, filed_list = artist_model.get(filed)
 
-    #객체가 아닌 int 형일 경우 에러 코드로 판단
-    if isinstance(artist_list, int):
-        #알 수 없는 컬럼일 경우
-        if artist_list == 1054:
-            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
+    error_check = ControllerBase.check_sql_error(artist_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
 
-    json_data_list = []
-    for item in artist_list:
-        json_data_list.append(item.to_dict(item, filed_list))
+    json_data_list = ControllerBase.sql_to_dict(artist_list, filed_list)
 
     return {'status': "200", 'data': json_data_list, 'message': "success"}
 
@@ -49,11 +46,11 @@ def post_artists(name, birth_year=None, death_year=None, country=None, genre=Non
     artist.genre = genre
 
     artist_model = ArtistModel.ArtistModel()
-    return_value = artist_model.insert(artist)
+    return_value, return_message = artist_model.insert(artist)
 
-    if type(return_value) is tuple:
-        if isinstance(return_value[0], int):
-            return {'status': "403", 'code': return_value[0], 'data': "", 'message': return_value[1]}
+    error_check = ControllerBase.check_sql_error(return_value, return_message)
+    if type(error_check) is dict:
+        return error_check
 
     artist_id = 0
     for artist_data in return_value:
@@ -62,9 +59,7 @@ def post_artists(name, birth_year=None, death_year=None, country=None, genre=Non
     # insert 한 데이터 select
     instance_artist, filed_list = artist_model.get(None, artist_id)
 
-    json_data = dict()
-    for item in instance_artist:
-        json_data = item.to_dict(item, filed_list)
+    json_data = ControllerBase.sql_to_dict(instance_artist, filed_list)
 
     return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
 
@@ -74,15 +69,11 @@ def get_artist(filed, artist_id):
 
     artist_list, filed_list = artist_model.get(filed, artist_id)
 
-    #객체가 아닌 int 형일 경우 에러 코드로 판단
-    if isinstance(artist_list, int):
-        #알 수 없는 컬럼일 경우
-        if artist_list == 1054:
-            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
+    error_check = ControllerBase.check_sql_error(artist_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
 
-    json_data_list = []
-    for item in artist_list:
-        json_data_list = item.to_dict(item, filed_list)
+    json_data_list = ControllerBase.sql_to_dict(artist_list, filed_list)
 
     return {'status': "200", 'code': 200, 'data': json_data_list, 'message': "success"}
 
@@ -111,11 +102,10 @@ def update_artist(artist_id, name=None, birth_year=None, death_year=None, countr
 
     artist_list, filed_list = artist_model.get(None, artist_id)
 
-    #객체가 아닌 int 형일 경우 에러 코드로 판단
-    if isinstance(artist_list, int):
-        #알 수 없는 컬럼일 경우
-        if artist_list == 1054:
-            return {'status': "400", 'code': "UnknownFiled", 'data': "", 'message': filed_list}
+    error_check = ControllerBase.check_sql_error(artist_list, filed_list)
+    if type(error_check) is dict:
+        return error_check
+
     if len(artist_list) == 0:
         return {'status': "404", 'code': "ResourceNotFound", 'data': "", 'message': "리소스를 찾을 수 없습니다."}
 
@@ -135,8 +125,6 @@ def update_artist(artist_id, name=None, birth_year=None, death_year=None, countr
     # update 한 데이터 select
     instance_artist, filed_list = artist_model.get(None, artist_id)
 
-    json_data = dict()
-    for item in instance_artist:
-        json_data = item.to_dict(item, filed_list)
+    json_data = ControllerBase.sql_to_dict(instance_artist, filed_list)
 
     return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
