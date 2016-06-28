@@ -1,6 +1,6 @@
 __author__ = 'hyeonsj'
 from models import ArtistModel
-from controllers import ControllerBase
+from controllers import ControllerBase, InvalidController
 
 
 def get_artists(filed, page):
@@ -24,15 +24,11 @@ def delete_all_artists():
 
 def post_artists(name, birth_year=None, death_year=None, country=None, genre=None):
 
-    if name is None or name == "":
-        return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
-
-    if type(birth_year) is int and type(death_year) is int:
-        if birth_year > death_year:
-            return {'status': "400", 'code': "WrongInput", 'message': "파라미터의 값이 잘못되었습니다"}
-
-    if len(name) > 45 or len(country) > 45 or len(genre) > 45:
-        return {'status': "400", 'code': "OutOfRangeInput", 'message': "파라미터의 값이 최대 제한 범위를 넘었습니다"}
+    # 파라미터 검사
+    image_invalid = InvalidController.ImageInvalid()
+    error_check = image_invalid.check_artist_invalid(name, birth_year, death_year, country, genre)
+    if type(error_check) is dict:
+        return error_check
 
     artist = ArtistModel.ArtistModel().Artist()
     artist.name = name
@@ -50,7 +46,6 @@ def post_artists(name, birth_year=None, death_year=None, country=None, genre=Non
 
     # insert 한 데이터 select
     instance_artist, filed_list = artist_model.get(None, artist_id)
-
     json_data = ControllerBase.sql_to_dict(instance_artist, filed_list)
 
     return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
@@ -76,14 +71,13 @@ def delete_artists(artist_id):
     return ControllerBase.check_sql_delete_error(return_value)
 
 
-def update_artist(artist_id, name=None, birth_year=None, death_year=None, country=None, genre=None):
+def put_artist(artist_id, name=None, birth_year=None, death_year=None, country=None, genre=None):
 
-    if type(birth_year) is int and type(death_year) is int:
-        if birth_year > death_year:
-            return {'status': "400", 'code': "WrongInput", 'message': "파라미터의 값이 잘못되었습니다"}
-
-    if len(name) > 45 or len(country) > 45 or len(genre) > 45:
-        return {'status': "400", 'code': "OutOfRangeInput", 'message': "파라미터의 값이 최대 제한 범위를 넘었습니다"}
+    # 파라미터 검사
+    image_invalid = InvalidController.ImageInvalid()
+    error_check = image_invalid.check_artist_invalid(name, birth_year, death_year, country, genre)
+    if type(error_check) is dict:
+        return error_check
 
     #해당 artist_id 데이터가 있는지 확인
     artist_model = ArtistModel.ArtistModel()
@@ -94,9 +88,6 @@ def update_artist(artist_id, name=None, birth_year=None, death_year=None, countr
     if type(error_check) is dict:
         return error_check
 
-    if len(artist_list) == 0:
-        return {'status': "404", 'code': "ResourceNotFound", 'data': "", 'message': "리소스를 찾을 수 없습니다."}
-
     artist = ArtistModel.ArtistModel().Artist()
     artist.name = name
     artist.birth_year = birth_year
@@ -105,10 +96,9 @@ def update_artist(artist_id, name=None, birth_year=None, death_year=None, countr
     artist.genre = genre
 
     return_value = artist_model.update(artist, artist_id)
-
-    if type(return_value) is tuple:
-        if isinstance(return_value[0], int):
-            return {'status': "403", 'code': return_value[0], 'data': "", 'message': return_value[1]}
+    check_update_error = ControllerBase.check_sql_update_error(return_value)
+    if check_update_error is tuple:
+        return check_update_error
 
     # update 한 데이터 select
     instance_artist, filed_list = artist_model.get(None, artist_id)

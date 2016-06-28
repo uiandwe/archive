@@ -108,9 +108,9 @@ def put_artist_image(image_id, image_url, title, year, artist_id, description):
     image_model = ImageModel.ImageModel()
     return_value = image_model.update(image, image_id)
 
-    if type(return_value) is tuple:
-        if isinstance(return_value[0], int):
-            return {'status': "403", 'code': return_value[0], 'data': "", 'message': return_value[1]}
+    check_update_error = ControllerBase.check_sql_update_error(return_value)
+    if check_update_error is tuple:
+        return check_update_error
 
     # insert 한 데이터 select
     instance_image, filed_list = image_model.get(None, None, image_id)

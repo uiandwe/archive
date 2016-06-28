@@ -40,7 +40,7 @@ def artist(artist_id):
         country = request.form['country']
         genre = request.form['genre']
 
-        return_json = artistController.update_artist(artist_id, name, birth_year, death_year, country, genre)
+        return_json = artistController.put_artist(artist_id, name, birth_year, death_year, country, genre)
 
     elif request.method == 'GET':
 

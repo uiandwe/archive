@@ -22,3 +22,16 @@ class ImageInvalid():
             return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
 
         return True
+
+    def check_artist_invalid(self, name, birth_year, death_year, country, genre):
+
+        if name is None or name == "":
+            return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
+
+        if type(birth_year) is int and type(death_year) is int:
+            if birth_year > death_year:
+                return {'status': "400", 'code': "WrongInput", 'message': "파라미터의 값이 잘못되었습니다."}
+
+        if len(name) > 45 or len(country) > 45 or len(genre) > 45:
+            return {'status': "400", 'code': "OutOfRangeInput", 'message': "파라미터의 값이 최대 제한 범위를 넘었습니다."}
+        return True

@@ -31,3 +31,10 @@ def check_sql_delete_error(sql_code):
     else:
         if isinstance(sql_code[0], int):
             return {'status': "403", 'code': "Forbidden", 'data': "", 'message': sql_code[1]}
+
+
+# update 리턴값에 대한 에러 처리
+def check_sql_update_error(slq_code):
+    if type(slq_code) is tuple:
+        if isinstance(slq_code[0], int):
+            return {'status': "403", 'code': slq_code[0], 'data': "", 'message': slq_code[1]}
