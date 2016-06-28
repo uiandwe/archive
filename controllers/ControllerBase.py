@@ -38,3 +38,7 @@ def check_sql_update_error(slq_code):
     if type(slq_code) is tuple:
         if isinstance(slq_code[0], int):
             return {'status': "403", 'code': slq_code[0], 'data': "", 'message': slq_code[1]}
+
+
+def success_return(data):
+    return {'status': "200", 'code': 200, 'data': data, 'message': "success"}

@@ -3,6 +3,7 @@ from models import ArtistModel
 from controllers import ControllerBase, InvalidController
 
 
+# /artists get
 def get_artists(filed, page):
     artist_model = ArtistModel.ArtistModel()
     artist_list, filed_list = artist_model.get(filed)
@@ -13,15 +14,17 @@ def get_artists(filed, page):
 
     json_data_list = ControllerBase.sql_to_dict(artist_list, filed_list)
 
-    return {'status': "200", 'data': json_data_list, 'message': "success"}
+    return ControllerBase.success_return(json_data_list)
 
 
+# /artists delete
 def delete_all_artists():
     artist_model = ArtistModel.ArtistModel()
     return_value = artist_model.delete()
     return ControllerBase.check_sql_delete_error(return_value)
 
 
+# /artists post
 def post_artists(name, birth_year=None, death_year=None, country=None, genre=None):
 
     # 파라미터 검사
@@ -48,9 +51,10 @@ def post_artists(name, birth_year=None, death_year=None, country=None, genre=Non
     instance_artist, filed_list = artist_model.get(None, artist_id)
     json_data = ControllerBase.sql_to_dict(instance_artist, filed_list)
 
-    return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
+    return ControllerBase.success_return(json_data)
 
 
+# /artists/:id get
 def get_artist(filed, artist_id):
     artist_model = ArtistModel.ArtistModel()
 
@@ -62,15 +66,17 @@ def get_artist(filed, artist_id):
 
     json_data_list = ControllerBase.sql_to_dict(artist_list, filed_list)
 
-    return {'status': "200", 'code': 200, 'data': json_data_list, 'message': "success"}
+    return ControllerBase.success_return(json_data_list)
 
 
+# /artists/:id delete
 def delete_artists(artist_id):
     artist_model = ArtistModel.ArtistModel()
     return_value = artist_model.delete(artist_id)
     return ControllerBase.check_sql_delete_error(return_value)
 
 
+# /artists/:id put
 def put_artist(artist_id, name=None, birth_year=None, death_year=None, country=None, genre=None):
 
     # 파라미터 검사
@@ -105,4 +111,4 @@ def put_artist(artist_id, name=None, birth_year=None, death_year=None, country=N
 
     json_data = ControllerBase.sql_to_dict(instance_artist, filed_list)
 
-    return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
+    return ControllerBase.success_return(json_data)

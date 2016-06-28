@@ -3,8 +3,9 @@ from models import ArtistModel, ImageModel
 from controllers import ControllerBase, InvalidController
 
 
+# /artists/:id/images get
 def get_artist_images(artist_id, filed=None, page=None):
-    #  해당 artist의 이미지 가져오기
+    # 해당 artist 이미지 데이터 가져오기
     image_model = ImageModel.ImageModel()
     image_list, filed_list = image_model.get(filed, artist_id, None)
 
@@ -15,7 +16,7 @@ def get_artist_images(artist_id, filed=None, page=None):
     data_dict = dict()
     data_dict['images'] = ControllerBase.sql_to_dict(image_list, filed_list)
 
-    # 해당 artist의 정보가져오기
+    # 해당 artist 데이터 가져오기
     artist_model = ArtistModel.ArtistModel()
     artist_list, filed_list = artist_model.get(filed, artist_id)
 
@@ -25,9 +26,10 @@ def get_artist_images(artist_id, filed=None, page=None):
 
     data_dict['artist'] = ControllerBase.sql_to_dict(artist_list, filed_list)
 
-    return {'status': "200", 'data': data_dict, 'message': "success"}
+    return ControllerBase.success_return(data_dict)
 
 
+# /artists/:id/images delete
 def delete_artist_images(artist_id, image_id=None):
     image_model = ImageModel.ImageModel()
     return_value = image_model.delete(artist_id, image_id)
@@ -35,13 +37,14 @@ def delete_artist_images(artist_id, image_id=None):
     return ControllerBase.check_sql_delete_error(return_value)
 
 
+# /artists/:id/images post
 def post_artist_image(image_url, title, year, artist_id, description):
     # 파라미터 검사
     image_invalid = InvalidController.ImageInvalid()
     error_check = image_invalid.check_image_invalid(image_url, title, year, artist_id, description)
     if type(error_check) is dict:
         return error_check
-
+    # insert 할 객체 생성
     image = ImageModel.ImageModel().Image()
     image.image_url = image_url
     image.title = title
@@ -51,7 +54,7 @@ def post_artist_image(image_url, title, year, artist_id, description):
 
     image_model = ImageModel.ImageModel()
     return_value = image_model.insert(image)
-    # insert한 데이터의 id
+    # insert 한 데이터의 id
     image_id = 0
     for item in return_value:
         image_id = item[0]
@@ -60,7 +63,7 @@ def post_artist_image(image_url, title, year, artist_id, description):
     instance_image, filed_list = image_model.get(None, None, image_id)
     json_data = ControllerBase.sql_to_dict(instance_image, filed_list)
 
-    return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
+    return ControllerBase.success_return(json_data)
 
 
 # /artists/:id/images/:id get
@@ -86,7 +89,7 @@ def get_artist_image(artist_id, image_id, filed=None):
 
     data_dict['artist'] = ControllerBase.sql_to_dict(artist_list, filed_list)
 
-    return {'status': "200", 'data': data_dict, 'message': "success"}
+    return ControllerBase.success_return(data_dict)
 
 
 # /artists/:id/images/:id put
@@ -116,9 +119,10 @@ def put_artist_image(image_id, image_url, title, year, artist_id, description):
     instance_image, filed_list = image_model.get(None, None, image_id)
     json_data = ControllerBase.sql_to_dict(instance_image, filed_list)
 
-    return {'status': "200", 'code': 200, 'data': json_data, 'message': "success"}
+    return ControllerBase.success_return(json_data)
 
 
+# /images get
 def get_images(filed=None, page=None):
     image_model = ImageModel.ImageModel()
     image_list, filed_list = image_model.get(filed, None, None)
@@ -129,15 +133,17 @@ def get_images(filed=None, page=None):
 
     json_data_list = ControllerBase.sql_to_dict(image_list, filed_list)
 
-    return {'status': "200", 'data': json_data_list, 'message': "success"}
+    return ControllerBase.success_return(json_data_list)
 
 
+# /images delete
 def delete_images():
     image_model = ImageModel.ImageModel()
     return_value = image_model.delete()
     return ControllerBase.check_sql_delete_error(return_value)
 
 
+# /images/:id get
 def get_image(image_id, filed=None):
     image_model = ImageModel.ImageModel()
     image_list, filed_list = image_model.get(filed, None, image_id)
@@ -148,9 +154,10 @@ def get_image(image_id, filed=None):
 
     json_data_list = ControllerBase.sql_to_dict(image_list, filed_list)
 
-    return {'status': "200", 'data': json_data_list, 'message': "success"}
+    return ControllerBase.success_return(json_data_list)
 
 
+# /images/:id delete
 def delete_image(image_id):
     image_model = ImageModel.ImageModel()
     return_value = image_model.delete(None, image_id)
