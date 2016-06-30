@@ -31,7 +31,7 @@ class DbController:
             print(">>>>>>>>>>>>>", code, message)
             return code, message
 
-    def exec(self, sql):
+    def execute_sql(self, sql):
         try:
             self.cur.execute(sql)
             self.conn.commit()

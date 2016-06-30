@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 __author__ = 'hyeonsj'
 from models import ArtistModel, ImageModel
 
@@ -22,6 +23,9 @@ class ImageInvalid():
             return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
 
         return True
+
+
+class ArtistInvalid():
 
     def check_artist_invalid(self, name, birth_year, death_year, country, genre):
 

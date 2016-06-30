@@ -1,5 +1,6 @@
+#-*- coding: utf-8 -*-
 __author__ = 'hyeonsj'
-from models.modelsBase import ModelsBase
+from .modelsBase import ModelsBase
 from controllers import DbController
 dc = DbController.DbController()
 
@@ -23,7 +24,7 @@ class ImageModel():
         if filed is None or filed is '':
             filed = "*"
             sql = " SHOW COLUMNS FROM images; "
-            cur = dc.exec(sql)
+            cur = dc.execute_sql(sql)
 
             for item in cur:
                 filed_list.append(item[0])
@@ -53,7 +54,7 @@ class ImageModel():
         if artist_id is None and image_id is not None:
             sql = "SELECT "+filed+"  FROM images where id = "+str(image_id)
 
-        cur = dc.exec(sql)
+        cur = dc.execute_sql(sql)
         #에러일 경우 tuple 리턴
         if type(cur) is tuple:
             return cur
@@ -85,7 +86,7 @@ class ImageModel():
         if artist_id is None and image_id > 0:
             sql = "delete from images where id = "+str(image_id)
 
-        cur = dc.exec(sql)
+        cur = dc.execute_sql(sql)
 
         if type(cur) is tuple:
             return cur
@@ -97,7 +98,7 @@ class ImageModel():
 
         mb = ModelsBase()
         insert_columns, insert_values = mb.insert_instance_to_str(instance_image)
-        cur = mb.insert_exec("images", insert_columns, insert_values)
+        cur = mb.insert_execute_sql("images", insert_columns, insert_values)
 
         return cur
 
@@ -105,6 +106,6 @@ class ImageModel():
 
         mb = ModelsBase()
         update_set_list = mb.update_instance_to_str(instance_image)
-        cur = mb.update_exec("images", update_set_list, image_id)
+        cur = mb.update_execute_sql("images", update_set_list, image_id)
 
         return cur

@@ -1,114 +1,81 @@
+#-*- coding: utf-8 -*-
 __author__ = 'hyeonsj'
 from models import ArtistModel
 from controllers import ControllerBase, InvalidController
+from controllers.DbSqlAlchemy import db_session
+from models.models import Artist
 
 
 # /artists get
 def get_artists(filed, page):
-    artist_model = ArtistModel.ArtistModel()
-    artist_list, filed_list = artist_model.get(filed)
+    artist = Artist()
+    artist_query = db_session.query(Artist)
+    artist_list = artist.to_dict(artist_query)
 
-    error_check = ControllerBase.check_sql_error(artist_list, filed_list)
-    if type(error_check) is dict:
-        return error_check
-
-    json_data_list = ControllerBase.sql_to_dict(artist_list, filed_list)
-
-    return ControllerBase.success_return(json_data_list)
+    return ControllerBase.success_return(artist_list)
 
 
 # /artists delete
 def delete_all_artists():
-    artist_model = ArtistModel.ArtistModel()
-    return_value = artist_model.delete()
-    return ControllerBase.check_sql_delete_error(return_value)
+
+    db_session.query(Artist).delete()
+    db_session.commit()
+
+    return ControllerBase.check_sql_delete_error(db_session)
 
 
 # /artists post
 def post_artists(name, birth_year=None, death_year=None, country=None, genre=None):
 
     # 파라미터 검사
-    image_invalid = InvalidController.ImageInvalid()
-    error_check = image_invalid.check_artist_invalid(name, birth_year, death_year, country, genre)
+    artist_invalid = InvalidController.ArtistInvalid()
+    error_check = artist_invalid.check_artist_invalid(name, birth_year, death_year, country, genre)
     if type(error_check) is dict:
         return error_check
-
-    artist = ArtistModel.ArtistModel().Artist()
-    artist.name = name
-    artist.birth_year = birth_year
-    artist.death_year = death_year
-    artist.country = country
-    artist.genre = genre
-
-    artist_model = ArtistModel.ArtistModel()
-    return_value = artist_model.insert(artist)
-
-    artist_id = 0
-    for artist_data in return_value:
-        artist_id = artist_data[0]
+    # insert 할 artist 객체 생성
+    artist = Artist()
+    artist_id = artist.add(name, birth_year, death_year, country, genre)
 
     # insert 한 데이터 select
-    instance_artist, filed_list = artist_model.get(None, artist_id)
-    json_data = ControllerBase.sql_to_dict(instance_artist, filed_list)
+    artist_query = db_session.query(Artist).filter(Artist.id == artist_id)
+    artist_instance = artist.to_dict(artist_query)
 
-    return ControllerBase.success_return(json_data)
+    return ControllerBase.success_return(artist_instance)
 
 
 # /artists/:id get
 def get_artist(filed, artist_id):
-    artist_model = ArtistModel.ArtistModel()
 
-    artist_list, filed_list = artist_model.get(filed, artist_id)
+    artist = Artist()
+    artist_query = db_session.query(Artist).filter(Artist.id == artist_id)
+    artist_list = artist.to_dict(artist_query)
 
-    error_check = ControllerBase.check_sql_error(artist_list, filed_list)
-    if type(error_check) is dict:
-        return error_check
-
-    json_data_list = ControllerBase.sql_to_dict(artist_list, filed_list)
-
-    return ControllerBase.success_return(json_data_list)
+    return ControllerBase.success_return(artist_list)
 
 
 # /artists/:id delete
 def delete_artists(artist_id):
-    artist_model = ArtistModel.ArtistModel()
-    return_value = artist_model.delete(artist_id)
-    return ControllerBase.check_sql_delete_error(return_value)
+    db_session.query(Artist).filter(Artist.id == artist_id).delete()
+    db_session.commit()
+
+    return ControllerBase.check_sql_delete_error(db_session)
 
 
 # /artists/:id put
 def put_artist(artist_id, name=None, birth_year=None, death_year=None, country=None, genre=None):
 
     # 파라미터 검사
-    image_invalid = InvalidController.ImageInvalid()
-    error_check = image_invalid.check_artist_invalid(name, birth_year, death_year, country, genre)
+    artist_invalid = InvalidController.ArtistInvalid()
+    error_check = artist_invalid.check_artist_invalid(name, birth_year, death_year, country, genre)
     if type(error_check) is dict:
         return error_check
 
-    #해당 artist_id 데이터가 있는지 확인
-    artist_model = ArtistModel.ArtistModel()
+    # 갱신할 artist 객체 생성
+    artist = Artist()
+    artist.update(artist_id, name, birth_year, death_year, country, genre)
 
-    artist_list, filed_list = artist_model.get(None, artist_id)
+    # 갱신된 객체 select
+    artist_query = db_session.query(Artist).filter(Artist.id == artist_id)
+    artist_list = artist.to_dict(artist_query)
 
-    error_check = ControllerBase.check_sql_error(artist_list, filed_list)
-    if type(error_check) is dict:
-        return error_check
-
-    artist = ArtistModel.ArtistModel().Artist()
-    artist.name = name
-    artist.birth_year = birth_year
-    artist.death_year = death_year
-    artist.country = country
-    artist.genre = genre
-
-    return_value = artist_model.update(artist, artist_id)
-    check_update_error = ControllerBase.check_sql_update_error(return_value)
-    if check_update_error is tuple:
-        return check_update_error
-
-    # update 한 데이터 select
-    instance_artist, filed_list = artist_model.get(None, artist_id)
-
-    json_data = ControllerBase.sql_to_dict(instance_artist, filed_list)
-
-    return ControllerBase.success_return(json_data)
+    return ControllerBase.success_return(artist_list)

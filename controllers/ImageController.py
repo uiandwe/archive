@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 __author__ = 'hyeonsj'
 from models import ArtistModel, ImageModel
 from controllers import ControllerBase, InvalidController

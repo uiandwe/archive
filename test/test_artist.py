@@ -2,29 +2,28 @@
 __author__ = 'hyeonsj'
 import pytest
 
-from controllers.DbController import DbController
+from controllers.DbSqlAlchemy import db_session
+from models.models import Artist
 from controllers import artistController
 from models import ArtistModel
 xfail = pytest.mark.xfail
-dc = DbController()
 
 
 def test_artists_get():
-    filed = "name"
-    page = 0
-    artist_model = ArtistModel.ArtistModel()
-    artist_list, filed_list = artist_model.get(filed)
+    a = Artist()
+    artist_query = db_session.query(Artist)
+    artist_list = a.to_dict(artist_query)
 
-    # assert len(artist_list) == 50
-
-    assert artist_list[0].name == "빈센트 반 고흐"
+    assert artist_list[0]['id'] == 102
 
 
 # def test_delete_all_artists():
-#     artist_Model = ArtistModel.ArtistModel()
-#     return_value = artist_Model.delete()
-
-    # assert return_value
+#
+#     db_session.query(Artist).delete()
+#     db_session.commit()
+#     return_value = db_session.query(Artist).count()
+#
+#     assert return_value == 0
 
 def test_artists_post():
 
@@ -33,8 +32,10 @@ def test_artists_post():
     death_year = 1100
     country = "korea"
     genre = "표현주의"
+
     return_json = artistController.post_artists(name, birth_year, death_year, country, genre)
     assert return_json['code'] == "NotInput"
+
 
     name = "현승재"
     birth_year = 1000
@@ -61,19 +62,20 @@ def test_artist_get():
     assert return_json['data']['name'] == "존 밀레이"
 
 
-def test_artist_delete():
+def test_artist_update():
 
-    return_json = artistController.delete_artists(153)
+    name = "현승재2"
+    birth_year = 1000
+    death_year = 1100
+    country = "korea2"
+    genre = "표현주의2"
+    return_json = artistController.put_artist(154, name, birth_year, death_year, country, genre)
+
     assert return_json['code'] == 200
 
 
-def test_artist_update():
+def test_artist_delete():
 
-    name = "현승재1"
-    birth_year = 1000
-    death_year = 1100
-    country = "korea1"
-    genre = "표현주의1"
-    return_json = artistController.update_artist(194, name, birth_year, death_year, country, genre)
+    return_json = artistController.delete_artists(155)
+    assert return_json['code'] == 200
 
-    assert return_json['code'] == "ResourceNotFound"

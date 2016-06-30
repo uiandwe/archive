@@ -1,5 +1,6 @@
+#-*- coding: utf-8 -*-
 __author__ = 'hyeonsj'
-from models.modelsBase import ModelsBase
+from .modelsBase import ModelsBase
 from controllers import DbController
 dc = DbController.DbController()
 
@@ -23,7 +24,7 @@ class ArtistModel():
         if filed is None or filed is '':
             filed = "*"
             sql = " SHOW COLUMNS FROM artists; "
-            cur = dc.exec(sql)
+            cur = dc.execute_sql(sql)
 
             for item in cur:
                 filed_list.append(item[0])
@@ -36,7 +37,7 @@ class ArtistModel():
         if artist_id is not None:
             sql += " where id = "+str(artist_id)
 
-        cur = dc.exec(sql)
+        cur = dc.execute_sql(sql)
         #에러일 경우 tuple 리턴
         if type(cur) is tuple:
             return cur
@@ -61,7 +62,7 @@ class ArtistModel():
             delete_where = "where id = "+str(artist_id)+" "
 
         sql = "delete from artists " + delete_where
-        cur = dc.exec(sql)
+        cur = dc.execute_sql(sql)
 
         if type(cur) is tuple:
             return cur
@@ -73,7 +74,7 @@ class ArtistModel():
         mb = ModelsBase()
         insert_columns, insert_values = mb.insert_instance_to_str(instance_artist)
 
-        cur = mb.insert_exec("artists", insert_columns, insert_values)
+        cur = mb.insert_execute_sql("artists", insert_columns, insert_values)
         print(cur)
         return cur
 
@@ -81,6 +82,6 @@ class ArtistModel():
         mb = ModelsBase()
         update_set_list = mb.update_instance_to_str(instance_artist)
 
-        cur = mb.update_exec("artists", update_set_list, artist_id)
+        cur = mb.update_execute_sql("artists", update_set_list, artist_id)
 
         return cur
