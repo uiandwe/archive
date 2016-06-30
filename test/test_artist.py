@@ -2,10 +2,9 @@
 __author__ = 'hyeonsj'
 import pytest
 
-from controllers.DbSqlAlchemy import db_session
+from controllers.DbController import db_session
 from models.models import Artist
 from controllers import artistController
-from models import ArtistModel
 xfail = pytest.mark.xfail
 
 

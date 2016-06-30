@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 __author__ = 'hyeonsj'
-from controllers.DbSqlAlchemy import db_session
+from controllers.DbController import db_session
 
 
 class ModelsBase():

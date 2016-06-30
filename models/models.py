@@ -2,7 +2,7 @@ __author__ = 'hyeonsj'
 
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
-from controllers.DbSqlAlchemy import Base, db_session
+from controllers.DbController import Base, db_session
 from .modelsBase import ModelsBase
 
 
@@ -76,3 +76,30 @@ class Image(Base):
         self.year = year
         self.artist_id = artist_id
         self.description = description
+
+    def to_dict(self, instance_list):
+        image_list = [dict(id=image.id, image_url=image.image_url, title=image.title, year=image.year,
+                           artist_id=image.artist_id, description=image.description) for image in instance_list]
+
+        if len(image_list) > 1:
+            return image_list
+        else:
+            return image_list[0]
+
+    def add(self, image_url=None, title=None, year=0, artist_id=0, description=None):
+        image = Image(image_url, title, year, artist_id, description)
+        mb = ModelsBase()
+        return mb.db_insert(image)
+
+    def update(self, image_id, image_url=None, title=None, year=0, artist_id=0, description=None):
+
+        image = db_session.query(Image).filter(Image.id == image_id).one()
+        image.image_url = image_url
+        image.title = title
+        image.title = title
+        image.year = year
+        image.artist_id = artist_id
+        image.description = description
+
+        mb = ModelsBase()
+        return mb.db_update(image)

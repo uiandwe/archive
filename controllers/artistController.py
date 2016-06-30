@@ -1,8 +1,7 @@
 #-*- coding: utf-8 -*-
 __author__ = 'hyeonsj'
-from models import ArtistModel
 from controllers import ControllerBase, InvalidController
-from controllers.DbSqlAlchemy import db_session
+from controllers.DbController import db_session
 from models.models import Artist
 
 
