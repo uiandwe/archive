@@ -5,9 +5,6 @@ from controllers.DbController import db_session
 
 class ModelsBase():
 
-    def set(self, instance, column, value):
-        setattr(instance, column, value)
-
     def db_insert(self, instance):
         db_session.add(instance)
         db_session.commit()
@@ -29,5 +26,10 @@ class ModelsBase():
             last_id = item[0]
         return last_id
 
+    def len_check(self, instance_list):
+        if len(instance_list) > 1:
+            return instance_list
+        else:
+            return instance_list[0]
 
 

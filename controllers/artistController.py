@@ -8,9 +8,7 @@ from models.models import Artist
 # /artists get
 def get_artists(filed, page):
     artist = Artist()
-    artist_query = db_session.query(Artist)
-    artist_list = artist.to_dict(artist_query)
-
+    artist_list = artist.find(None)
     return ControllerBase.success_return(artist_list)
 
 
@@ -36,8 +34,7 @@ def post_artists(name, birth_year=None, death_year=None, country=None, genre=Non
     artist_id = artist.add(name, birth_year, death_year, country, genre)
 
     # insert 한 데이터 select
-    artist_query = db_session.query(Artist).filter(Artist.id == artist_id)
-    artist_instance = artist.to_dict(artist_query)
+    artist_instance = artist.find(artist_id)
 
     return ControllerBase.success_return(artist_instance)
 
@@ -46,10 +43,9 @@ def post_artists(name, birth_year=None, death_year=None, country=None, genre=Non
 def get_artist(filed, artist_id):
 
     artist = Artist()
-    artist_query = db_session.query(Artist).filter(Artist.id == artist_id)
-    artist_list = artist.to_dict(artist_query)
+    artist_instance = artist.find(artist_id)
 
-    return ControllerBase.success_return(artist_list)
+    return ControllerBase.success_return(artist_instance)
 
 
 # /artists/:id delete
@@ -74,7 +70,6 @@ def put_artist(artist_id, name=None, birth_year=None, death_year=None, country=N
     artist.update(artist_id, name, birth_year, death_year, country, genre)
 
     # 갱신된 객체 select
-    artist_query = db_session.query(Artist).filter(Artist.id == artist_id)
-    artist_list = artist.to_dict(artist_query)
+    artist_instance = artist.find(artist_id)
 
-    return ControllerBase.success_return(artist_list)
+    return ControllerBase.success_return(artist_instance)

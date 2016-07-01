@@ -11,13 +11,11 @@ def get_artist_images(artist_id, filed=None, page=None):
     data_dict = dict()
 
     image = Image()
-    image_query = db_session.query(Image).filter(Image.artist_id == artist_id)
-    data_dict['images'] = image.to_dict(image_query)
+    data_dict['images'] = image.find(None, artist_id)
 
     # 해당 artist 데이터 가져오기
     artist = Artist()
-    artist_query = db_session.query(Artist).filter(Artist.id == artist_id)
-    data_dict['artist'] = artist.to_dict(artist_query)
+    data_dict['artist'] = artist.find(artist_id)
 
     return ControllerBase.success_return(data_dict)
 
@@ -44,10 +42,9 @@ def post_artist_image(image_url, title, year, artist_id, description):
     image_id = image.add(image_url, title, year, artist_id, description)
 
     # insert 한 데이터 select
-    image_instance = db_session.query(Image).filter(Image.id == image_id)
-    image_dict = image.to_dict(image_instance)
+    image_instance = image.find(image_id, None)
 
-    return ControllerBase.success_return(image_dict)
+    return ControllerBase.success_return(image_instance)
 
 
 # /artists/:id/images/:id get
@@ -56,13 +53,11 @@ def get_artist_image(artist_id, image_id, filed=None):
     data_dict = dict()
 
     image = Image()
-    image_query = db_session.query(Image).filter(Image.id == image_id)
-    data_dict['images'] = image.to_dict(image_query)
+    data_dict['images'] = image.find(image_id, None)
 
     # 해당 artist 데이터 가져오기
     artist = Artist()
-    artist_query = db_session.query(Artist).filter(Artist.id == artist_id)
-    data_dict['artist'] = artist.to_dict(artist_query)
+    data_dict['artist'] = artist.find(artist_id)
 
     return ControllerBase.success_return(data_dict)
 
@@ -80,10 +75,9 @@ def put_artist_image(image_id, image_url, title, year, artist_id, description):
     image.update(image_id, image_url, title, year, artist_id, description)
 
     # 갱신된 객체 select
-    image_instance = db_session.query(Image).filter(Image.id == image_id)
-    image_dict = image.to_dict(image_instance)
+    image_instance = image.find(image_id, None)
 
-    return ControllerBase.success_return(image_dict)
+    return ControllerBase.success_return(image_instance)
 
 
 # /artists/:id/images/:id delete
@@ -115,13 +109,12 @@ def delete_images():
 
 
 # /images/:id get
-def get_image(image_id, filed=None):
+def get_image(image_id=None, filed=None):
 
     image = Image()
-    image_instance = db_session.query(Image).filter(Image.id == image_id)
-    image_dict = image.to_dict(image_instance)
+    image_instance = image.find(image_id, None)
 
-    return ControllerBase.success_return(image_dict)
+    return ControllerBase.success_return(image_instance)
 
 
 # /images/:id delete

@@ -1,6 +1,5 @@
 #-*- coding: utf-8 -*-
 __author__ = 'hyeonsj'
-from models import ArtistModel, ImageModel
 
 
 class ImageInvalid():
@@ -15,12 +14,6 @@ class ImageInvalid():
 
         if len(image_url) > 255 or len(title) > 255 or len(description) > 255:
             return {'status': "400", 'code': "OutOfRangeInput", 'message': "파라미터의 값이 최대 제한 범위를 넘었습니다."}
-
-        # fk인 artist_id의 값이 artists 테이블에 있는지 확인
-        artist_model = ArtistModel.ArtistModel()
-        artist_list, filed_list = artist_model.get(None, artist_id)
-        if len(artist_list) <= 0:
-            return {'status': "400", 'code': "NotInput", 'message': "파라미터의 데이터가 없습니다."}
 
         return True
 

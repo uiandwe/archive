@@ -6,20 +6,6 @@ from controllers.DbController import Base, db_session
 from .modelsBase import ModelsBase
 
 
-class User(Base):
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50), unique=True)
-    email = Column(String(120), unique=True)
-
-    def __init__(self, name=None, email=None):
-        self.name = name
-        self.email = email
-
-    def __repr__(self):
-        return '<User %r>' % (self.name)
-
-
 class Artist(Base):
     __tablename__ = 'artists'
     id = Column(Integer, primary_key=True)
@@ -37,12 +23,10 @@ class Artist(Base):
         self.genre = genre
 
     def to_dict(self, instance_list):
+        mb = ModelsBase()
         artist_list = [dict(id=artist.id, name=artist.name, birth_year=artist.birth_year, death_year=artist.death_year,
                             country=artist.country, genre=artist.genre) for artist in instance_list]
-        if len(artist_list) > 1:
-            return artist_list
-        else:
-            return artist_list[0]
+        return mb.len_check(artist_list)
 
     def add(self, name=None, birth_year=0, death_year=0, country=None, genre=None):
         artist = Artist(name, birth_year, death_year, country, genre)
@@ -59,6 +43,15 @@ class Artist(Base):
 
         mb = ModelsBase()
         return mb.db_update(artist)
+
+    def find(self, artist_id=0):
+        artist = Artist()
+
+        if artist_id > 0:
+            artist_query = db_session.query(Artist).filter(Artist.id == artist_id)
+        else:
+            artist_query = db_session.query(Artist)
+        return artist.to_dict(artist_query)
 
 
 class Image(Base):
@@ -80,11 +73,8 @@ class Image(Base):
     def to_dict(self, instance_list):
         image_list = [dict(id=image.id, image_url=image.image_url, title=image.title, year=image.year,
                            artist_id=image.artist_id, description=image.description) for image in instance_list]
-
-        if len(image_list) > 1:
-            return image_list
-        else:
-            return image_list[0]
+        mb = ModelsBase()
+        return mb.len_check(image_list)
 
     def add(self, image_url=None, title=None, year=0, artist_id=0, description=None):
         image = Image(image_url, title, year, artist_id, description)
@@ -103,3 +93,13 @@ class Image(Base):
 
         mb = ModelsBase()
         return mb.db_update(image)
+
+    def find(self, image_id, artist_id):
+        image = Image()
+        if artist_id is None and image_id > 0:
+            image_query = db_session.query(Image).filter(Image.id == image_id)
+        if image_id is None and artist_id > 0:
+            image_query = db_session.query(Image).filter(Image.artist_id == artist_id)
+        if image_id is None and artist_id is None:
+            image_query = db_session.query(Image)
+        return image.to_dict(image_query)
